@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeFramework", "MazeFramework\MazeFramework.csproj", "{3668B099-0A3B-4ED4-9DD7-94F53B872201}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3668B099-0A3B-4ED4-9DD7-94F53B872201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3668B099-0A3B-4ED4-9DD7-94F53B872201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3668B099-0A3B-4ED4-9DD7-94F53B872201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3668B099-0A3B-4ED4-9DD7-94F53B872201}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73C336F8-122F-4A54-BC75-C45F936438DE}
+	EndGlobalSection
+EndGlobal
