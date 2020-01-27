@@ -12,12 +12,15 @@ namespace MazeFramework
 
     class MazeViewer : iGameState
     {
+        int x = 100;
+        Texture2D sprite;
         public MazeViewer()
         {
 
         }
         public override void Load()
         {
+            sprite = ContentLoader.LoadTexture("Sprites/Player/Front.png");
         }
 
         public override void Render()
@@ -27,17 +30,15 @@ namespace MazeFramework
 
             GL.Color4(Color4.White);
 
-            GL.Vertex2(0,0);
-            GL.Vertex2(0,1);
-            GL.Vertex2(1,1);
-            GL.Vertex2(1,0);
-            GL.End();
+         
+            
 
 
         }
 
         public override void Update()
         {
+            
         }
     }
 }

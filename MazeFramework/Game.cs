@@ -26,16 +26,16 @@ namespace MazeFramework
 
             window.VSync = OpenTK.VSyncMode.On;
 
-            current = new MazeViewer();
+            current = new RoomViewer();
         }
 
         private void windowRenderFrame(object sender, FrameEventArgs e)
         {
-            GL.Viewport(0, 0, window.Width, window.Height);
-            GL.ClearColor(Color4.Blue);
+           
+
+            
+            GL.ClearColor(Color4.blac);
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Clear(ClearBufferMask.DepthBufferBit);
-            GL.MatrixMode(MatrixMode.Projection);
 
             current.Render();
 
@@ -52,7 +52,12 @@ namespace MazeFramework
 
         private void windowLoad(object sender, EventArgs e)
         {
-            
+            GL.Viewport(0, 0, window.Width, window.Height);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.Ortho(0, 400, 0, 224, -1, 1);
+            GL.Enable(EnableCap.Texture2D);
+
+            current.Load();
         }
     }
 }

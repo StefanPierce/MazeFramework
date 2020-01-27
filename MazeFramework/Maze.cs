@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeFramework
 {
-    abstract class iGameState
+    class Maze
     {
-        public abstract void Load();
-        public abstract void Update();
-        public abstract void Render();
-
-
     }
 }
