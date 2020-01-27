@@ -34,7 +34,7 @@ namespace MazeFramework
            
 
             
-            GL.ClearColor(Color4.blac);
+            GL.ClearColor(Color4.Black);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             current.Render();
