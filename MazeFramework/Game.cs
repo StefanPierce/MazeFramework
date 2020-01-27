@@ -14,10 +14,11 @@ namespace MazeFramework
         private GameWindow window;
         iGameState current;
 
-
+        int x, y;
         public Game(GameWindow window)
         {
-            
+            x = 0;
+            x = 0;
 
             this.window = window;
             window.Load += windowLoad;
@@ -31,11 +32,13 @@ namespace MazeFramework
 
         private void windowRenderFrame(object sender, FrameEventArgs e)
         {
-           
 
+            
             
             GL.ClearColor(Color4.Black);
             GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            
 
             current.Render();
 
@@ -47,6 +50,7 @@ namespace MazeFramework
 
         private void windowUpdateFrame(object sender, FrameEventArgs e)
         {
+            InputHandler.updateState();
             current.Update();
         }
 
@@ -56,6 +60,9 @@ namespace MazeFramework
             GL.MatrixMode(MatrixMode.Projection);
             GL.Ortho(0, 400, 0, 224, -1, 1);
             GL.Enable(EnableCap.Texture2D);
+
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             current.Load();
         }

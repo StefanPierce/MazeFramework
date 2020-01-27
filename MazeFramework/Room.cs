@@ -13,7 +13,7 @@ namespace MazeFramework
     }
     class Room
     {
-        Tiles[,] grid = new Tiles[25, 20];
+        Tiles[,] grid = new Tiles[20, 12];
         public Room()
         {
             for (int y = 0; y < grid.GetLength(1); y++)
