@@ -25,7 +25,17 @@ namespace MazeFramework
 
         public void Render()
         {
-            current.Draw(x, y);
+            current.Draw(getGlobalX(), getGlobalY());
+        }
+
+        public int getGlobalX()
+        {
+            return x * 16;
+        }
+
+        public int getGlobalY()
+        {
+            return y * 16;
         }
 
         public void Update()
