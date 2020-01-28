@@ -26,19 +26,41 @@ namespace MazeFramework
             direction = Direction.NORTH;
         }
 
-        public void Render()
+        public void Move(int x, int y)
         {
-            current.Draw(getGlobalX(), getGlobalY());
+            this.x += x;
+            this.y += y;
         }
 
-        public int getGlobalX()
+        public void Render(int size)
         {
-            return x * 16;
+            current.Draw(getGlobalX(size), getGlobalY(size));
         }
 
-        public int getGlobalY()
+        public int getGlobalX(int s)
         {
-            return y * 16;
+            return x * s;
+        }
+
+        public int getGlobalY(int s)
+        {
+            return y * s;
+        }
+
+        public int getMazeX()
+        {
+            return x;
+        }
+
+        public int getMazeY()
+        {
+            return y;
+        }
+
+        public void setPos(Vector2 vec)
+        {
+            x = (int)vec.X;
+            y = (int)vec.Y;
         }
 
         public void Update()

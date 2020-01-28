@@ -80,6 +80,7 @@
     <Compile Include="Engine\iGameState.cs" />
     <Compile Include="Engine\InputHandler.cs" />
     <Compile Include="MazeGame\GameStates\ExitState.cs" />
+    <Compile Include="MazeGame\GameStates\HDRoomViewer.cs" />
     <Compile Include="MazeGame\GameStates\MainMenu.cs" />
     <Compile Include="MazeGame\Maze.cs" />
     <Compile Include="MazeGame\GameStates\MazeViewer.cs" />

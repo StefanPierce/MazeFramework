@@ -1,4 +1,5 @@
 ﻿using MazeFramework.MazeGame;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace MazeFramework
         Passage north, east, south, west;
 
         Tiles[,] grid;
+
+        static Passage[] passages;
 
 
         public static int roomCounter = 0;
@@ -89,28 +92,88 @@ namespace MazeFramework
             return null;
         }
 
-        public void addPassage(Direction d, int id)
+        public Vector2 getEntrancePos(Direction d)
         {
             switch (d)
             {
                 case Direction.NORTH:
-                    north = new Passage(id);
-                    grid[grid.GetLength(0) / 2, grid.GetLength(1) - 1] = Tiles.PASSAGE;
+                    return new Vector2( grid.GetLength(0) / 2, grid.GetLength(1) - 2);
                     break;
                 case Direction.EAST:
-                    east = new Passage(id);
-                    grid[grid.GetLength(0) - 1, grid.GetLength(1) / 2] = Tiles.PASSAGE;
+                    return new Vector2(grid.GetLength(0) - 2, grid.GetLength(1) / 2);
                     break;
                 case Direction.SOUTH:
-                    south = new Passage(id);
-                    grid[grid.GetLength(0) / 2, 0] = Tiles.PASSAGE;
+                    return new Vector2(grid.GetLength(0) / 2, 1);
                     break;
                 case Direction.WEST:
-                    west = new Passage(id);
-                    grid[0, grid.GetLength(1)/2] = Tiles.PASSAGE;
+                    return new Vector2(1, grid.GetLength(1) / 2);
                     break;
             }
+
+            return new Vector2(grid.GetLength(0) / 2, grid.GetLength(1) / 2);
         }
+
+        public Boolean addPassage(Direction d, int id, Direction eD)
+        {
+            switch (d)
+            {
+                case Direction.NORTH:
+                    if (north == null)
+                    {
+                        north = new Passage(id, eD);
+                        grid[grid.GetLength(0) / 2, grid.GetLength(1) - 1] = Tiles.PASSAGE;
+                        return true;
+                    }
+                    break;
+                case Direction.EAST:
+                    if(east == null)
+                    {
+                        east = new Passage(id, eD);
+                        grid[grid.GetLength(0) - 1, grid.GetLength(1) / 2] = Tiles.PASSAGE;
+                        return true;
+                    }
+                    break;
+                case Direction.SOUTH:
+                    if(south == null)
+                    {
+                        south = new Passage(id, eD);
+                        grid[grid.GetLength(0) / 2, 0] = Tiles.PASSAGE;
+                        return true;
+                    }
+                    break;
+                case Direction.WEST:
+                    if(west == null)
+                    {
+                        west = new Passage(id, eD);
+                        grid[0, grid.GetLength(1) / 2] = Tiles.PASSAGE;
+                        return true;
+                    }
+                    break;
+            }
+
+            return false;
+        }
+
+        public Boolean doesPassageExist(Direction d)
+        {
+            switch (d)
+            {
+                case Direction.NORTH:
+                    return north != null;
+                    break;
+                case Direction.EAST:
+                    return east != null;
+                    break;
+                case Direction.SOUTH:
+                    return south != null;
+                    break;
+                case Direction.WEST:
+                    return west != null;
+                    break;
+            }
+            return false;
+        }
+
 
     }
 }

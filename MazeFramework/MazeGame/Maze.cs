@@ -18,26 +18,51 @@ namespace MazeFramework
 
             for(int i = 0; i<20; i++)
             {
-                rooms.Add(new Room(rand.Next(10,20),rand.Next(10,20)));
+                rooms.Add(new Room(rand.Next(8,12),rand.Next(8,12)));
             }
 
 
 
             for(int i = 0; i < rooms.Count; i++)
             {
-                int otherRoom = i;
-                while(otherRoom == i)
+                
+
+                for(int x = 0; x < 3; x++)
                 {
-                    otherRoom = rand.Next(0, rooms.Count);
+                    int otherRoom = i;
+                    while (otherRoom == i)
+                    {
+                        otherRoom = rand.Next(0, rooms.Count);
+                    }
+
+                    Direction r1 = (Direction)rand.Next(0, 3);
+                    Direction r2 = (Direction)rand.Next(0, 3);
+
+                    if (!rooms[i].doesPassageExist(r1))
+                    {
+                        if (rooms[otherRoom].addPassage(r2, i, r1))
+                        {
+                            Console.WriteLine("ADDED ROOM 1");
+                            if (rooms[i].addPassage(r1, otherRoom, r2))
+                            {
+                                Console.WriteLine("ADDED ROOM 2");
+                            }
+
+                            Console.WriteLine("-----");
+                        }
+                    }
                 }
-                rooms[i].addPassage((Direction)rand.Next(0, 3), otherRoom);
-                rooms[otherRoom].addPassage((Direction)rand.Next(0, 3), i);
+                
+                
+
+
             }
 
 
 
         }
 
+      
         public int getRoomCount()
         {
             return rooms.Count();

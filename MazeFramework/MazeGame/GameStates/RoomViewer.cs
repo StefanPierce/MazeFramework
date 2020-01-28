@@ -9,11 +9,11 @@ namespace MazeFramework
 {
     class RoomViewer : iGameState
     {
-        Room room;
-        Tiles[,] grid;
-        Texture2D floor, wall, passage;
+        protected Room room;
+        protected Tiles[,] grid;
+        protected Texture2D floor, wall, passage;
 
-        Player p1;
+        protected Player p1;
 
         Maze maze;
 
@@ -27,12 +27,14 @@ namespace MazeFramework
             room = maze.getRoom(1);
 
             p1 = new Player();
+            p1.setPos(room.getEntrancePos(Direction.EAST));
         }
 
-        public void switchRoom(Room room)
+        public void switchRoom(Room room, Direction exitDirection)
         {
-            
+            int tRoomID = this.room.ROOMID();
             this.room = room;
+            p1.setPos(room.getEntrancePos(exitDirection));
             grid = room.getTilesForRender();
             Console.WriteLine($"SWITCHING TO ROOM: {room.ROOMID()}");
         }
@@ -66,39 +68,68 @@ namespace MazeFramework
 
             }
 
-            p1.Render();
+            p1.Render(16);
         }
 
         public override void Update()
         {
+            p1.Update();
+
             try
             {
+                Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
+
                 if (InputHandler.playerUp())
                 {
-                    switchRoom(maze.getRoom(room.getPassage(Direction.NORTH).getConnection()));
+                    if(playerPos == Tiles.PASSAGE)
+                    {
+                        switchRoom(maze.getRoom(room.getPassage(Direction.NORTH).getConnection()), room.getPassage(Direction.NORTH).getExitDirection());
+                    }
+                    else if (playerPos == Tiles.WALL)
+                    {
+                        p1.Move(0,-1);
+                    }
                 }
                 if (InputHandler.playerDown())
                 {
-                    switchRoom(maze.getRoom(room.getPassage(Direction.SOUTH).getConnection()));
+                    if (playerPos == Tiles.PASSAGE)
+                    {
+                        switchRoom(maze.getRoom(room.getPassage(Direction.SOUTH).getConnection()), room.getPassage(Direction.SOUTH).getExitDirection());
+                    }
+                    else if (playerPos == Tiles.WALL)
+                    {
+                        p1.Move(0, 1);
+                    }
 
                 }
                 if (InputHandler.playerLeft())
                 {
-                    switchRoom(maze.getRoom(room.getPassage(Direction.WEST).getConnection()));
+                    if (playerPos == Tiles.PASSAGE)
+                    {
+                        switchRoom(maze.getRoom(room.getPassage(Direction.WEST).getConnection()), room.getPassage(Direction.WEST).getExitDirection());
+                    }
+                    else if (playerPos == Tiles.WALL)
+                    {
+                        p1.Move(1, 0);
+                    }
 
                 }
                 if (InputHandler.playerRight())
                 {
-                    switchRoom(maze.getRoom(room.getPassage(Direction.EAST).getConnection()));
+                    if (playerPos == Tiles.PASSAGE)
+                    {
+                        switchRoom(maze.getRoom(room.getPassage(Direction.EAST).getConnection()), room.getPassage(Direction.EAST).getExitDirection());
+                    }else if (playerPos == Tiles.WALL)
+                    {
+                        p1.Move(-1, 0);
+                    }
 
                 }
             }
             catch(Exception e)
             {
-                Console.WriteLine("No Passage that way");
             }
 
-            p1.Update();
         }
 
         public override iGameState switchTo()

@@ -10,10 +10,17 @@ namespace MazeFramework.MazeGame
     {
         Boolean isExit;
         int connectionID;
+        Direction exitPosition;
 
-        public Passage(int id)
+        public Passage(int id, Direction d)
         {
             connectionID = id;
+            exitPosition = d;
+        }
+
+        public Direction getExitDirection()
+        {
+            return exitPosition;
         }
 
         public int getConnection()
