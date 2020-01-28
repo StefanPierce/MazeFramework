@@ -40,7 +40,7 @@ namespace MazeFramework
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
 
-            return new Texture2D(id) ;
+            return new Texture2D(id, bmp.Width, bmp.Height) ;
         }
 
     }

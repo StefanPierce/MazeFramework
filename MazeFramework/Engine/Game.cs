@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MazeFramework.MazeGame.GameStates;
 
 namespace MazeFramework
 {
@@ -27,7 +28,7 @@ namespace MazeFramework
 
             window.VSync = OpenTK.VSyncMode.On;
 
-            current = new RoomViewer();
+            current = new MainMenu();
         }
 
         private void windowRenderFrame(object sender, FrameEventArgs e)
@@ -53,6 +54,17 @@ namespace MazeFramework
         {
             InputHandler.updateState();
             current.Update();
+
+            if (current.switchTo() != null)
+            {
+                current = current.switchTo();
+                current.Load();
+                if(current is ExitState)
+                {
+                    window.Close();
+                }
+            }
+
         }
 
         private void windowLoad(object sender, EventArgs e)

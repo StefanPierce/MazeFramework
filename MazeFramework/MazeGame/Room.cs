@@ -31,7 +31,6 @@ namespace MazeFramework
         public Room(int width, int height)
         {
             grid = new Tiles[width, height];
-            Console.WriteLine($"Making rooms with size [{width},{height}]");
             for (int y = 0; y < grid.GetLength(1); y++)
             {
                 for (int x = 0; x < grid.GetLength(0); x++)

@@ -101,5 +101,10 @@ namespace MazeFramework
 
             p1.Update();
         }
+
+        public override iGameState switchTo()
+        {
+            return null;
+        }
     }
 }

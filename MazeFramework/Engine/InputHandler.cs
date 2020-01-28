@@ -12,7 +12,6 @@ namespace MazeFramework
         static KeyboardState state = Keyboard.GetState();
         static KeyboardState prevState = state;
 
-        static Boolean left, right, up, down;
 
         public static void updateState()
         {
@@ -20,6 +19,21 @@ namespace MazeFramework
             state = Keyboard.GetState();
         }
 
+        public static Boolean playerSelect()
+        {
+            if (state.IsKeyDown(Key.Enter))
+            {
+                if (prevState.IsKeyDown(Key.Enter))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public static Boolean playerLeft()
         {
             if (state.IsKeyDown(Key.A))

@@ -36,6 +36,11 @@ namespace MazeFramework
 
         }
 
+        public override iGameState switchTo()
+        {
+            return null;
+        }
+
         public override void Update()
         {
             
