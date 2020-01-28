@@ -30,10 +30,6 @@ namespace MazeFramework
 
             GL.Color4(Color4.White);
 
-         
-            
-
-
         }
 
         public override iGameState switchTo()

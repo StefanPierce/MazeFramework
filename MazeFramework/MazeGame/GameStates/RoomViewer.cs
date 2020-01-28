@@ -19,7 +19,6 @@ namespace MazeFramework
 
         public RoomViewer()
         {
-            //room = new Room(3,3);
             floor = ContentLoader.LoadTexture("Sprites/Room1/Floor.png");
             wall = ContentLoader.LoadTexture("Sprites/Room1/Wall.png");
 
@@ -40,14 +39,11 @@ namespace MazeFramework
         public override void Load()
         {
             grid = room.getTilesForRender();
-
-            
+ 
         }
 
         public override void Render()
         {
-            
-
 
             for (int y = 0; y < grid.GetLength(1); y++)
             {
@@ -97,7 +93,6 @@ namespace MazeFramework
             {
                 Console.WriteLine("No Passage that way");
             }
-           
 
             p1.Update();
         }

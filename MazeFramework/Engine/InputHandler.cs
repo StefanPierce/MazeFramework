@@ -19,6 +19,23 @@ namespace MazeFramework
             state = Keyboard.GetState();
         }
 
+
+        public static Boolean fullScreen()
+        {
+            if ((state.IsKeyDown(Key.AltLeft) && state.IsKeyDown(Key.Enter)))
+            {
+                if ((prevState.IsKeyDown(Key.AltLeft) && prevState.IsKeyDown(Key.Enter)))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static Boolean playerSelect()
         {
             if (state.IsKeyDown(Key.Enter))
