@@ -11,7 +11,7 @@ namespace MazeFramework
     {
         Room room;
         Tiles[,] grid;
-        Texture2D floor, wall;
+        Texture2D floor, wall, passage;
 
         Player p1;
 
@@ -21,7 +21,7 @@ namespace MazeFramework
         {
             floor = ContentLoader.LoadTexture("Sprites/Room1/Floor.png");
             wall = ContentLoader.LoadTexture("Sprites/Room1/Wall.png");
-
+            passage = ContentLoader.LoadTexture("Sprites/Room1/Passage.png");
 
             maze = new Maze();
             room = maze.getRoom(1);
@@ -34,6 +34,7 @@ namespace MazeFramework
             
             this.room = room;
             grid = room.getTilesForRender();
+            Console.WriteLine($"SWITCHING TO ROOM: {room.ROOMID()}");
         }
 
         public override void Load()
@@ -56,6 +57,9 @@ namespace MazeFramework
                             break;
                         case Tiles.WALL:
                             wall.Draw(16 * x, 16 * y);
+                            break;
+                        case Tiles.PASSAGE:
+                            passage.Draw(16 * x, 16 * y);
                             break;
                     }
                 }

@@ -24,12 +24,19 @@ namespace MazeFramework
 
     class Room
     {
+        public int roomID;
 
         Passage north, east, south, west;
 
         Tiles[,] grid;
+
+
+        public static int roomCounter = 0;
+
         public Room(int width, int height)
         {
+            roomID = getRoomID();
+
             grid = new Tiles[width, height];
             for (int y = 0; y < grid.GetLength(1); y++)
             {
@@ -47,6 +54,18 @@ namespace MazeFramework
 
             }
 
+
+
+        }
+
+        public int ROOMID()
+        {
+            return roomID;
+        }
+        private int getRoomID()
+        {
+            roomCounter++;
+            return roomCounter;
         }
 
         public Tiles[,] getTilesForRender()
@@ -76,15 +95,19 @@ namespace MazeFramework
             {
                 case Direction.NORTH:
                     north = new Passage(id);
+                    grid[grid.GetLength(0) / 2, grid.GetLength(1) - 1] = Tiles.PASSAGE;
                     break;
                 case Direction.EAST:
                     east = new Passage(id);
+                    grid[grid.GetLength(0) - 1, grid.GetLength(1) / 2] = Tiles.PASSAGE;
                     break;
                 case Direction.SOUTH:
                     south = new Passage(id);
+                    grid[grid.GetLength(0) / 2, 0] = Tiles.PASSAGE;
                     break;
                 case Direction.WEST:
                     west = new Passage(id);
+                    grid[0, grid.GetLength(1)/2] = Tiles.PASSAGE;
                     break;
             }
         }
