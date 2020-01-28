@@ -13,6 +13,8 @@ namespace MazeFramework
         Texture2D current;
         public int x;
         public int y;
+        Direction direction;
+
         public Player()
         {
             up = ContentLoader.LoadTexture("Sprites/Player/Up.png");
@@ -21,6 +23,7 @@ namespace MazeFramework
             right = ContentLoader.LoadTexture("Sprites/Player/Right.png");
 
             current = up;
+            direction = Direction.NORTH;
         }
 
         public void Render()
@@ -44,22 +47,40 @@ namespace MazeFramework
 
             if (InputHandler.playerUp())
             {
-                y += 1;
+                if (direction == Direction.NORTH)
+                {
+                    y += 1;
+                }
+                direction = Direction.NORTH;
                 current = up;
             }
             if (InputHandler.playerDown())
             {
-                y -= 1;
+                if (direction == Direction.SOUTH)
+                {
+                    y -= 1;
+                }
+                direction = Direction.SOUTH;
                 current = down;
             }
             if (InputHandler.playerLeft())
             {
-                x -= 1;
+                if (direction == Direction.WEST)
+                {
+                    x -= 1;
+
+                }
+                direction = Direction.WEST;
                 current = left;
             }
             if (InputHandler.playerRight())
             {
-                x += 1;
+                if (direction == Direction.EAST)
+                {
+                    x += 1;
+
+                }
+                direction = Direction.EAST;
                 current = right;
             }
         }
