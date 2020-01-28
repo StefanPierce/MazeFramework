@@ -15,13 +15,26 @@ namespace MazeFramework
 
         Player p1;
 
+        Maze maze;
+
         public RoomViewer()
         {
-            room = new Room();
+            //room = new Room(3,3);
             floor = ContentLoader.LoadTexture("Sprites/Room1/Floor.png");
             wall = ContentLoader.LoadTexture("Sprites/Room1/Wall.png");
 
+
+            maze = new Maze();
+            room = maze.getRoom(1);
+
             p1 = new Player();
+        }
+
+        public void switchRoom(Room room)
+        {
+            
+            this.room = room;
+            grid = room.getTilesForRender();
         }
 
         public override void Load()
@@ -58,6 +71,34 @@ namespace MazeFramework
 
         public override void Update()
         {
+            try
+            {
+                if (InputHandler.playerUp())
+                {
+                    switchRoom(maze.getRoom(room.getPassage(Direction.NORTH).getConnection()));
+                }
+                if (InputHandler.playerDown())
+                {
+                    switchRoom(maze.getRoom(room.getPassage(Direction.SOUTH).getConnection()));
+
+                }
+                if (InputHandler.playerLeft())
+                {
+                    switchRoom(maze.getRoom(room.getPassage(Direction.WEST).getConnection()));
+
+                }
+                if (InputHandler.playerRight())
+                {
+                    switchRoom(maze.getRoom(room.getPassage(Direction.EAST).getConnection()));
+
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("No Passage that way");
+            }
+           
+
             p1.Update();
         }
     }
