@@ -45,6 +45,10 @@ namespace MazeFramework
             marker.Draw(20, 70 - (selected*20));
         }
 
+        public override void RenderOverlay()
+        {
+        }
+
         public void selectOption()
         {
             switch (selected)

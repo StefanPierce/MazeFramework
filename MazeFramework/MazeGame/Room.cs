@@ -36,6 +36,10 @@ namespace MazeFramework
 
         public static int roomCounter = 0;
 
+       
+
+        List<Treasure> treasures;
+
         public Room(int width, int height)
         {
             roomID = getRoomID();
@@ -57,8 +61,46 @@ namespace MazeFramework
 
             }
 
+            treasures = new List<Treasure>();
 
+            Random rand = new Random();
+            for(int i = 0; i < 10; i++)
+            {
+                treasures.Add(new Treasure("Treasure", TREASURE.COIN, rand.Next(1,width-1), rand.Next(1, height - 1)));
+            }
+        }
 
+        public int isTreasureAt(int mazeX, int mazeY)
+        {
+            int total = 0;
+            foreach(Treasure t in treasures)
+            {
+                
+                if(mazeX == t.getX() && mazeY == t.getY())
+                {
+                    total += t.pickUp();
+                }
+            }
+            return total;
+        }
+
+        public void clearTreasures()
+        {
+            for(int i = treasures.Count-1; i >= 0;  i--)
+            {
+                if (treasures[i].delete)
+                {
+                    treasures.RemoveAt(i);
+                }
+            }
+        }
+
+        public void RenderTreasures()
+        {
+            foreach(Treasure t in treasures)
+            {
+                t.Render();
+            }
         }
 
         public int ROOMID()

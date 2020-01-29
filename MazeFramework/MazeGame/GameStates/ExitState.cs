@@ -16,6 +16,10 @@ namespace MazeFramework.MazeGame.GameStates
         {
         }
 
+        public override void RenderOverlay()
+        {
+        }
+
         public override iGameState switchTo()
         {
             return null;

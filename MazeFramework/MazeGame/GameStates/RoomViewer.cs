@@ -12,28 +12,37 @@ namespace MazeFramework
     class RoomViewer : iGameState
     {
         protected Room room;
+        protected Room switchToRoom;
         protected Tiles[,] grid;
         protected Texture2D floor, wall, passage;
+
+        protected Texture2D UIMoney;
+
+        float zoom = 1;
 
         protected Player p1;
 
         Camera cam;
 
         Maze maze;
+        Tiles[,] around = new Tiles[0, 0];
 
         public RoomViewer()
         {
             floor = ContentLoader.LoadTexture("Sprites/Room1/Floor.png");
             wall = ContentLoader.LoadTexture("Sprites/Room1/Wall.png");
             passage = ContentLoader.LoadTexture("Sprites/Room1/Passage.png");
-            
+
+            UIMoney = ContentLoader.LoadTexture("Sprites/Treasures/UI.png");
+
             maze = new Maze(ConfigSettings.roomCount);
             room = maze.getRoom(1);
+
 
             p1 = new Player();
             p1.setPos(room.getEntrancePos(Direction.EAST));
 
-            cam = new Camera(p1.getCameraTransform(16), 1);
+            cam = new Camera(p1.getCameraTransform(zoom), zoom);
         }
 
         public void switchRoom(Room room, Direction exitDirection)
@@ -49,13 +58,16 @@ namespace MazeFramework
         public override void Load()
         {
             grid = room.getTilesForRender();
- 
+
         }
 
         public override void Render()
         {
+
+           
+
             cam.ApplyTran();
-            
+
 
             for (int y = 0; y < grid.GetLength(1); y++)
             {
@@ -78,75 +90,93 @@ namespace MazeFramework
             }
 
 
-            p1.Render(16);
-            
+            room.RenderTreasures();
+
+            p1.Render();
+
         }
 
         public override void Update()
         {
-            p1.Update();
+
+            around = new Tiles[3, 3];
+
+
             
-            try
+
+            for (int y = 0; y < around.GetLength(1); y++)
             {
-                Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
-
-                if (InputHandler.playerUp())
+                for (int x = 0; x < around.GetLength(0); x++)
                 {
-                    if(playerPos == Tiles.PASSAGE)
+                    try
                     {
-                        switchRoom(maze.getRoom(room.getPassage(Direction.NORTH).getConnection()), room.getPassage(Direction.NORTH).getExitDirection());
+                        around[x, y] = grid[p1.getMazeX() - (1 - x), p1.getMazeY() - (1 - y)];
                     }
-                    else if (playerPos == Tiles.WALL)
+                    catch (Exception e)
                     {
-                        p1.Move(0,-1);
-                    }
-                }
-                if (InputHandler.playerDown())
-                {
-                    if (playerPos == Tiles.PASSAGE)
-                    {
-                        switchRoom(maze.getRoom(room.getPassage(Direction.SOUTH).getConnection()), room.getPassage(Direction.SOUTH).getExitDirection());
-                    }
-                    else if (playerPos == Tiles.WALL)
-                    {
-                        p1.Move(0, 1);
-                    }
-
-                }
-                if (InputHandler.playerLeft())
-                {
-                    if (playerPos == Tiles.PASSAGE)
-                    {
-                        switchRoom(maze.getRoom(room.getPassage(Direction.WEST).getConnection()), room.getPassage(Direction.WEST).getExitDirection());
-                    }
-                    else if (playerPos == Tiles.WALL)
-                    {
-                        p1.Move(1, 0);
-                    }
-
-                }
-                if (InputHandler.playerRight())
-                {
-                    if (playerPos == Tiles.PASSAGE)
-                    {
-                        switchRoom(maze.getRoom(room.getPassage(Direction.EAST).getConnection()), room.getPassage(Direction.EAST).getExitDirection());
-                    }else if (playerPos == Tiles.WALL)
-                    {
-                        p1.Move(-1, 0);
+                        around[x, y] = Tiles.FLOOR;
                     }
 
                 }
             }
-            catch(Exception e)
+
+            p1.Update(around);
+
+            p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
+            room.clearTreasures();
+            
+
+
+            Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
+            Direction d = p1.getDirection();
+
+            if (playerPos == Tiles.PASSAGE)
             {
+                switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
             }
 
-            cam.Update(p1.getCameraTransform(16), 1);
+
+            if (InputHandler.isZoomIn())
+            {
+                zoom += 0.1f;
+            }
+
+            if (InputHandler.isZoomOut())
+            {
+                zoom -= 0.1f;
+            }
+
+            cam.Update(p1.getCameraTransform(zoom), zoom);
         }
 
         public override iGameState switchTo()
         {
             return null;
+        }
+
+        public override void RenderOverlay()
+        {
+            //for (int y = 0; y < around.GetLength(1); y++)
+            //{
+            //    for (int x = 0; x < around.GetLength(0); x++)
+            //    {
+            //        switch (around[x, y])
+            //        {
+            //            case Tiles.FLOOR:
+            //                floor.Draw(16 * x, 16 * y);
+            //                break;
+            //            case Tiles.WALL:
+            //                wall.Draw(16 * x, 16 * y);
+            //                break;
+            //            case Tiles.PASSAGE:
+            //                passage.Draw(16 * x, 16 * y);
+            //                break;
+            //        }
+            //    }
+
+            //}
+
+            UIMoney.Draw(ConfigSettings.iResWidth - 80, ConfigSettings.iResHeight - 50);
         }
     }
 }

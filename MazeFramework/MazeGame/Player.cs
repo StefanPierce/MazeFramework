@@ -18,7 +18,11 @@ namespace MazeFramework
         int globalY;
         Direction direction;
 
-        Boolean moving = false;
+        int wealth = 100;
+
+        int tileSize = 16;
+
+        public Boolean moving { get; private set; } = false;
 
         public Player()
         {
@@ -29,6 +33,8 @@ namespace MazeFramework
 
             current = up;
             direction = Direction.NORTH;
+
+            
         }
 
         public void setFaceAwayFrom(Direction d)
@@ -59,26 +65,26 @@ namespace MazeFramework
             this.y += y;
         }
 
-        public void Render(int size)
+        public void Render()
         {
             current.Draw(globalX, globalY);
 
             
         }
 
-        public Vector2 getCameraTransform(int size)
+        public Vector2 getCameraTransform(float scale)
         {
-            return new Vector2((globalX - ConfigSettings.iResWidth / 2)+current.width/2, (globalY- ConfigSettings.iResHeight / 2)+current.height/2);
+            return new Vector2((globalX - ConfigSettings.iResWidth / (2*scale))+current.width/2, (globalY- ConfigSettings.iResHeight / (2*scale))+current.height/2);
         }
 
-        public int getGlobalX(int s)
+        public int getGlobalX()
         {
-            return x * s;
+            return x * tileSize;
         }
 
-        public int getGlobalY(int s)
+        public int getGlobalY()
         {
-            return y * s;
+            return y * tileSize;
         }
 
         public int getMazeX()
@@ -95,38 +101,38 @@ namespace MazeFramework
         {
             x = (int)vec.X;
             y = (int)vec.Y;
-            globalX = getGlobalX(16);
-            globalY = getGlobalY(16);
+            globalX = getGlobalX();
+            globalY = getGlobalY();
         }
 
-        public void Update()
+        public void Update(Tiles[,] around)
         {
-            if(globalX != getGlobalX(16) || globalY!= getGlobalY(16))
+            if (globalX != getGlobalX() || globalY != getGlobalY())
             {
-                if (globalX < getGlobalX(16))
+                if (globalX < getGlobalX())
                 {
                     globalX++;
                 }
-                else if (globalX > getGlobalX(16))
+                if (globalX > getGlobalX())
                 {
                     globalX--;
                 }
 
-                if (globalY < getGlobalY(16))
+                if (globalY < getGlobalY())
                 {
                     globalY++;
                 }
-                else if (globalY > getGlobalY(16))
+                if (globalY > getGlobalY())
                 {
                     globalY--;
                 }
             }
-            
             else
             {
+                
                 if (InputHandler.playerUp())
                 {
-                    if (direction == Direction.NORTH)
+                    if (direction == Direction.NORTH && around[1, 2] != Tiles.WALL) 
                     {
                         y += 1;
                     }
@@ -135,16 +141,20 @@ namespace MazeFramework
                 }
                 if (InputHandler.playerDown())
                 {
-                    if (direction == Direction.SOUTH)
+                    if (direction == Direction.SOUTH && around[1, 0] != Tiles.WALL)
                     {
                         y -= 1;
+                    }
+                    else
+                    {
+                       
                     }
                     direction = Direction.SOUTH;
                     current = down;
                 }
                 if (InputHandler.playerLeft())
                 {
-                    if (direction == Direction.WEST)
+                    if (direction == Direction.WEST && around[0, 1] != Tiles.WALL)
                     {
                         x -= 1;
 
@@ -154,10 +164,9 @@ namespace MazeFramework
                 }
                 if (InputHandler.playerRight())
                 {
-                    if (direction == Direction.EAST)
+                    if (direction == Direction.EAST && around[2, 1] != Tiles.WALL)
                     {
                         x += 1;
-
                     }
                     direction = Direction.EAST;
                     current = right;
@@ -167,5 +176,14 @@ namespace MazeFramework
             
         }
 
+        internal void pickUpMoney(int v)
+        {
+            wealth += v;
+        }
+
+        internal Direction getDirection()
+        {
+            return direction;
+        }
     }
 }

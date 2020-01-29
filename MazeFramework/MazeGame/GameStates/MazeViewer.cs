@@ -32,6 +32,10 @@ namespace MazeFramework
 
         }
 
+        public override void RenderOverlay()
+        {
+        }
+
         public override iGameState switchTo()
         {
             return null;

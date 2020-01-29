@@ -13,7 +13,7 @@ namespace MazeFramework
         static KeyboardState prevState = state;
 
         private static int up, down, left, right = 0;
-
+        private static int timeoutTime = 10;
 
         public static void updateState()
         {
@@ -57,7 +57,7 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.A))
             {
-                if (prevState.IsKeyDown(Key.A)&&left < 20)
+                if (prevState.IsKeyDown(Key.A)&&left < timeoutTime)
                 {
                     left++;
                     return false;
@@ -76,7 +76,7 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.D))
             {
-                if (prevState.IsKeyDown(Key.D)&&right<20)
+                if (prevState.IsKeyDown(Key.D)&&right< timeoutTime)
                 {
                     right++;
                     return false;
@@ -93,9 +93,10 @@ namespace MazeFramework
 
         public static Boolean playerUp()
         {
+
             if (state.IsKeyDown(Key.W))
             {
-                if (prevState.IsKeyDown(Key.W)&&up<20)
+                if (prevState.IsKeyDown(Key.W)&&up< timeoutTime)
                 {
                     up++;
                     return false;
@@ -103,6 +104,7 @@ namespace MazeFramework
                 else
                 {
                     up = 0;
+
                     return true;
                 }
             }
@@ -115,7 +117,7 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.S))
             {
-                if (prevState.IsKeyDown(Key.S)&&down < 20)
+                if (prevState.IsKeyDown(Key.S)&&down< timeoutTime)
                 {
                     down++;
                     return false;
@@ -129,6 +131,38 @@ namespace MazeFramework
             down = 0;
             return false;
 
+        }
+
+        public static Boolean isZoomIn()
+        {
+            if (state.IsKeyDown(Key.Up))
+            {
+                if (prevState.IsKeyDown(Key.Up))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static Boolean isZoomOut()
+        {
+            if (state.IsKeyDown(Key.Down))
+            {
+                if (prevState.IsKeyDown(Key.Down))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }

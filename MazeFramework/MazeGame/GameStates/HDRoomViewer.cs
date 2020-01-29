@@ -31,7 +31,7 @@ namespace MazeFramework.MazeGame.GameStates
 
             }
             
-            p1.Render(32);
+            p1.Render();
         }
     }
 }

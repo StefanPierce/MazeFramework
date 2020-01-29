@@ -42,6 +42,14 @@ namespace MazeFramework
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             current.Render();
+
+            GL.LoadIdentity();
+            GL.Viewport(0, 0, window.Width, window.Height);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.Ortho(0, ConfigSettings.iResWidth, 0, ConfigSettings.iResHeight, -1, 1);
+
+            current.RenderOverlay();
+
             window.SwapBuffers();
         }
 

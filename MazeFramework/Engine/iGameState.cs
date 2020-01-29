@@ -12,6 +12,7 @@ namespace MazeFramework
         public abstract void Update();
         public abstract void Render();
 
+        public abstract void RenderOverlay();
         public abstract iGameState switchTo();
     }
 }
