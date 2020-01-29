@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeFramework.MazeGame
 {
-    class Passage
+    public class Passage
     {
         Boolean isExit;
         int connectionID;

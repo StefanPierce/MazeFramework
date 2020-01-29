@@ -85,7 +85,7 @@ namespace MazeFramework
         public override void Update()
         {
             p1.Update();
-
+            
             try
             {
                 Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
@@ -140,6 +140,7 @@ namespace MazeFramework
             catch(Exception e)
             {
             }
+
             cam.Update(p1.getCameraTransform(16), 1);
         }
 

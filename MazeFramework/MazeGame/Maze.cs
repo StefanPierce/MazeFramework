@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MazeFramework
 {
-    class Maze
+    public class Maze
     {
         List<Room> rooms;
         Random rand;

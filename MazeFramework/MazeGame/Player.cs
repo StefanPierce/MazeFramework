@@ -14,7 +14,11 @@ namespace MazeFramework
         Texture2D current;
         public int x;
         public int y;
+        int globalX;
+        int globalY;
         Direction direction;
+
+        Boolean moving = false;
 
         public Player()
         {
@@ -57,12 +61,14 @@ namespace MazeFramework
 
         public void Render(int size)
         {
-            current.Draw(getGlobalX(size), getGlobalY(size));
+            current.Draw(globalX, globalY);
+
+            
         }
 
         public Vector2 getCameraTransform(int size)
         {
-            return new Vector2((getGlobalX(size)- ConfigSettings.iResWidth / 2)+current.width/2, (getGlobalY(size)- ConfigSettings.iResHeight / 2)+current.height/2);
+            return new Vector2((globalX - ConfigSettings.iResWidth / 2)+current.width/2, (globalY- ConfigSettings.iResHeight / 2)+current.height/2);
         }
 
         public int getGlobalX(int s)
@@ -89,50 +95,76 @@ namespace MazeFramework
         {
             x = (int)vec.X;
             y = (int)vec.Y;
+            globalX = getGlobalX(16);
+            globalY = getGlobalY(16);
         }
 
         public void Update()
         {
-
-
-            if (InputHandler.playerUp())
+            if(globalX != getGlobalX(16) || globalY!= getGlobalY(16))
             {
-                if (direction == Direction.NORTH)
+                if (globalX < getGlobalX(16))
                 {
-                    y += 1;
+                    globalX++;
                 }
-                direction = Direction.NORTH;
-                current = up;
-            }
-            if (InputHandler.playerDown())
-            {
-                if (direction == Direction.SOUTH)
+                else if (globalX > getGlobalX(16))
                 {
-                    y -= 1;
+                    globalX--;
                 }
-                direction = Direction.SOUTH;
-                current = down;
-            }
-            if (InputHandler.playerLeft())
-            {
-                if (direction == Direction.WEST)
-                {
-                    x -= 1;
 
-                }
-                direction = Direction.WEST;
-                current = left;
-            }
-            if (InputHandler.playerRight())
-            {
-                if (direction == Direction.EAST)
+                if (globalY < getGlobalY(16))
                 {
-                    x += 1;
-
+                    globalY++;
                 }
-                direction = Direction.EAST;
-                current = right;
+                else if (globalY > getGlobalY(16))
+                {
+                    globalY--;
+                }
             }
+            
+            else
+            {
+                if (InputHandler.playerUp())
+                {
+                    if (direction == Direction.NORTH)
+                    {
+                        y += 1;
+                    }
+                    direction = Direction.NORTH;
+                    current = up;
+                }
+                if (InputHandler.playerDown())
+                {
+                    if (direction == Direction.SOUTH)
+                    {
+                        y -= 1;
+                    }
+                    direction = Direction.SOUTH;
+                    current = down;
+                }
+                if (InputHandler.playerLeft())
+                {
+                    if (direction == Direction.WEST)
+                    {
+                        x -= 1;
+
+                    }
+                    direction = Direction.WEST;
+                    current = left;
+                }
+                if (InputHandler.playerRight())
+                {
+                    if (direction == Direction.EAST)
+                    {
+                        x += 1;
+
+                    }
+                    direction = Direction.EAST;
+                    current = right;
+                }
+            }
+
+            
         }
 
     }

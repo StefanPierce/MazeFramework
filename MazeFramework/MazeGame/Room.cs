@@ -23,7 +23,7 @@ namespace MazeFramework
         WEST
     }
 
-    class Room
+    public class Room
     {
         public int roomID;
 
