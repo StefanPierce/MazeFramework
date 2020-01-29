@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MazeFramework.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,11 @@ namespace MazeFramework
 
             for(int i = 0; i<roomCount; i++)
             {
-                rooms.Add(new Room(rand.Next(8,12),rand.Next(8,12)));
+                rooms.Add(
+                    new Room(
+                        rand.Next(ConfigSettings.minRoomHeight,ConfigSettings.maxRoomHeight),
+                        rand.Next(ConfigSettings.minRoomWidth, ConfigSettings.maxRoomWidth))
+                    );
             }
 
 
