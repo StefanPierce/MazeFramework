@@ -12,6 +12,8 @@ namespace MazeFramework
         static KeyboardState state = Keyboard.GetState();
         static KeyboardState prevState = state;
 
+        private static int up, down, left, right = 0;
+
 
         public static void updateState()
         {
@@ -55,15 +57,18 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.A))
             {
-                if (prevState.IsKeyDown(Key.A))
+                if (prevState.IsKeyDown(Key.A)&&left < 20)
                 {
+                    left++;
                     return false;
                 }
                 else
                 {
+                    left = 0;
                     return true;
                 }
             }
+            left = 0;
             return false;
         }
 
@@ -71,15 +76,18 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.D))
             {
-                if (prevState.IsKeyDown(Key.D))
+                if (prevState.IsKeyDown(Key.D)&&right<20)
                 {
+                    right++;
                     return false;
                 }
                 else
                 {
+                    right = 0;
                     return true;
                 }
             }
+            right = 0;
             return false;
         }
 
@@ -87,15 +95,18 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.W))
             {
-                if (prevState.IsKeyDown(Key.W))
+                if (prevState.IsKeyDown(Key.W)&&up<20)
                 {
+                    up++;
                     return false;
                 }
                 else
                 {
+                    up = 0;
                     return true;
                 }
             }
+            up = 0;
             return false;
 
         }
@@ -104,15 +115,18 @@ namespace MazeFramework
         {
             if (state.IsKeyDown(Key.S))
             {
-                if (prevState.IsKeyDown(Key.S))
+                if (prevState.IsKeyDown(Key.S)&&down < 20)
                 {
+                    down++;
                     return false;
                 }
                 else
                 {
+                    down = 0;
                     return true;
                 }
             }
+            down = 0;
             return false;
 
         }
