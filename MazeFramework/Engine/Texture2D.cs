@@ -17,8 +17,8 @@ namespace MazeFramework
     class Texture2D
     {
         int id;
-        int width;
-        int height;
+        public int width { get; }
+        public int height { get; }
 
         int x = 0;
 

@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using MazeFramework.Engine;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,28 @@ namespace MazeFramework
             direction = Direction.NORTH;
         }
 
+        public void setFaceAwayFrom(Direction d)
+        {
+            switch (d)
+            {
+                case Direction.NORTH:
+                    direction = Direction.SOUTH;
+                    current = down;
+                    break;
+                case Direction.EAST:
+                    direction = Direction.WEST;
+                    current = left;
+                    break;
+                case Direction.SOUTH:
+                    direction = Direction.NORTH;
+                    current = up;
+                    break;
+                case Direction.WEST:
+                    direction = Direction.EAST;
+                    current = down;
+                    break;
+            }
+        }
         public void Move(int x, int y)
         {
             this.x += x;
@@ -35,6 +58,11 @@ namespace MazeFramework
         public void Render(int size)
         {
             current.Draw(getGlobalX(size), getGlobalY(size));
+        }
+
+        public Vector2 getCameraTransform(int size)
+        {
+            return new Vector2((getGlobalX(size)- ConfigSettings.iResWidth / 2)+current.width/2, (getGlobalY(size)- ConfigSettings.iResHeight / 2)+current.height/2);
         }
 
         public int getGlobalX(int s)

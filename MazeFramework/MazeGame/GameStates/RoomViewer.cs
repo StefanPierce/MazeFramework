@@ -1,4 +1,6 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using MazeFramework.Engine;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace MazeFramework
 
         protected Player p1;
 
+        Camera cam;
+
         Maze maze;
 
         public RoomViewer()
@@ -22,12 +26,14 @@ namespace MazeFramework
             floor = ContentLoader.LoadTexture("Sprites/Room1/Floor.png");
             wall = ContentLoader.LoadTexture("Sprites/Room1/Wall.png");
             passage = ContentLoader.LoadTexture("Sprites/Room1/Passage.png");
-
-            maze = new Maze();
+            
+            maze = new Maze(ConfigSettings.roomCount);
             room = maze.getRoom(1);
 
             p1 = new Player();
             p1.setPos(room.getEntrancePos(Direction.EAST));
+
+            cam = new Camera(p1.getCameraTransform(16), 1);
         }
 
         public void switchRoom(Room room, Direction exitDirection)
@@ -35,6 +41,7 @@ namespace MazeFramework
             int tRoomID = this.room.ROOMID();
             this.room = room;
             p1.setPos(room.getEntrancePos(exitDirection));
+            p1.setFaceAwayFrom(exitDirection);
             grid = room.getTilesForRender();
             Console.WriteLine($"SWITCHING TO ROOM: {room.ROOMID()}");
         }
@@ -47,6 +54,8 @@ namespace MazeFramework
 
         public override void Render()
         {
+            cam.ApplyTran();
+            
 
             for (int y = 0; y < grid.GetLength(1); y++)
             {
@@ -68,7 +77,9 @@ namespace MazeFramework
 
             }
 
+
             p1.Render(16);
+            
         }
 
         public override void Update()
@@ -129,7 +140,7 @@ namespace MazeFramework
             catch(Exception e)
             {
             }
-
+            cam.Update(p1.getCameraTransform(16), 1);
         }
 
         public override iGameState switchTo()

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MazeFramework.MazeGame.GameStates;
+using MazeFramework.Engine;
 
 namespace MazeFramework
 {
@@ -17,6 +18,7 @@ namespace MazeFramework
 
         public Game(GameWindow window)
         {
+            ConfigSettings.loadConfig();
 
             this.window = window;
             window.Load += windowLoad;
@@ -30,8 +32,11 @@ namespace MazeFramework
 
         private void windowRenderFrame(object sender, FrameEventArgs e)
         {
+            GL.LoadIdentity();
+
             GL.Viewport(0, 0, window.Width, window.Height);
             GL.MatrixMode(MatrixMode.Projection);
+            GL.Ortho(0, ConfigSettings.iResWidth, 0, ConfigSettings.iResHeight, -1, 1);
 
             GL.ClearColor(Color4.Black);
             GL.Clear(ClearBufferMask.ColorBufferBit);
@@ -73,11 +78,11 @@ namespace MazeFramework
         {
 
             GL.Enable(EnableCap.Texture2D);
-            GL.Ortho(0, 400, 0, 224, -1, 1);
+            GL.Ortho(0, ConfigSettings.iResWidth, 0, ConfigSettings.iResHeight, -1, 1);
 
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
+            
             current.Load();
         }
     }

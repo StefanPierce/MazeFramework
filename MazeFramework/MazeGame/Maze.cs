@@ -10,13 +10,13 @@ namespace MazeFramework
     {
         List<Room> rooms;
         Random rand;
-        public Maze()
+        public Maze(int roomCount)
         {
             rand = new Random();
 
             rooms = new List<Room>();
 
-            for(int i = 0; i<20; i++)
+            for(int i = 0; i<roomCount; i++)
             {
                 rooms.Add(new Room(rand.Next(8,12),rand.Next(8,12)));
             }
