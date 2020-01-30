@@ -1,4 +1,5 @@
-﻿using OpenTK.Input;
+﻿using MazeFramework.Engine;
+using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MazeFramework
         private static int up, down, left, right = 0;
         private static int timeoutTime = 10;
 
-        private static Random random = new Random();
+        private static Random random = new Random(ConfigSettings.seed);
 
         public static void updateState()
         {

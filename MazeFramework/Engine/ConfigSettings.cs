@@ -20,6 +20,8 @@ namespace MazeFramework.Engine
 
         public static int roomCount = 25;
 
+        public static int seed = 301095;
+
         //public static int enemiePlacement { get; } = 50;
 
 

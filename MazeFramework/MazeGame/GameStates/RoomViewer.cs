@@ -36,6 +36,7 @@ namespace MazeFramework
 
             maze = new Maze(ConfigSettings.roomCount);
             maze.GenerateTreasures();
+            maze.GenerateEnemies();
             room = maze.getRoom(0);
 
 

@@ -87,6 +87,14 @@ namespace MazeFramework
             }
         }
 
+        public void GenerateEnemies()
+        {
+            foreach(Room r in rooms)
+            {
+                r.GenerateEnemies();
+            }
+        }
+
       
         public int getRoomCount()
         {

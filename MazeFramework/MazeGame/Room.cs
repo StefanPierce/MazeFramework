@@ -74,10 +74,22 @@ namespace MazeFramework
             treasures = new List<Treasure>();
             enemies = new List<Enemy>();
 
-            enemies.Add(new Enemy("ENEMY1", ENEMY.ENEMY1, 3, 3));
+            
         }
 
-        
+        public void GenerateEnemies()
+        {
+            int num = rand.Next(1, 3);
+
+            int x, y;
+
+            for(int i = 0; i < num; i++)
+            {
+                x = rand.Next(1, roomWidth-1);
+                y = rand.Next(1, roomHeight-1);
+                enemies.Add(new Enemy($"ENEMY{i}", ENEMY.ENEMY1, x, y));
+            }
+        }
         public void setVisited()
         {
             isVisited = true;
@@ -119,10 +131,6 @@ namespace MazeFramework
             }
         }
         
-        public void GenerateEnemies()
-        {
-            
-        }
 
         public int isTreasureAt(int mazeX, int mazeY)
         {
