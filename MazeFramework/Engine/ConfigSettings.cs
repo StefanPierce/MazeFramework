@@ -20,7 +20,7 @@ namespace MazeFramework.Engine
 
         public static int roomCount = 25;
 
-        public static int seed = 301095;
+        public static int seed = 1;
 
         //public static int enemiePlacement { get; } = 50;
 
@@ -35,7 +35,7 @@ namespace MazeFramework.Engine
             loadFromConfig(ref minRoomWidth, "minRoomWidth");
             loadFromConfig(ref maxRoomHeight, "maxRoomHeight");
             loadFromConfig(ref minRoomHeight, "minRoomHeight");
-
+            loadFromConfig(ref seed, "seed");
 
 
 

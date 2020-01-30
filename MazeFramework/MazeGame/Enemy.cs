@@ -12,11 +12,13 @@ namespace MazeFramework.MazeGame
     }
     class Enemy : Item
     {
-        int health;
+        int health = 100;
         int damage = 1;
         ENEMY type;
         int x, y;
+        int prevX, prevY;
         int globalX, globalY;
+        public Boolean dead { get; private set; } = false;
 
         public static Texture2D enemy1 = ContentLoader.LoadTexture("Sprites/Enemies/Enemy1.png");
         private Texture2D current;
@@ -36,10 +38,67 @@ namespace MazeFramework.MazeGame
             }
         }
 
+        public void MoveBack()
+        {
+            x = prevX;
+            y = prevY;
+        }
+
+        public void Hit(int damage)
+        {
+            health -= damage;
+            if(health < 1)
+            {
+                dead = true;
+            }
+        }
+
         public int Update(int px, int py)
         {
             int damagePlayer = 0;
+            prevX = x;
+            prevY = y;
+            
 
+            if (px > x+1)
+            {
+                x += 1;
+                return 0;
+            }
+           
+            else if (px < x-1)
+            {
+                x -= 1;
+                return 0;
+            }
+
+            if (py > y + 1)
+            {
+                y += 1;
+            }
+            else if (py < y-1)
+            {
+                y -= 1;
+            }
+            
+
+            if((px == x && py - 1 == y) || (px == x && py + 1 == y) || 
+                (py == y && px - 1 == x) || (py == y && px + 1 == x))
+            {
+                damagePlayer += damage;
+            }
+            else
+            {
+
+            }
+
+
+            return damagePlayer;
+
+        }
+
+        public void Render()
+        {
             if (globalX != getGlobalX() || globalY != getGlobalY())
             {
                 if (globalX < getGlobalX())
@@ -61,34 +120,7 @@ namespace MazeFramework.MazeGame
                 }
             }
 
-            if (px > x+1)
-            {
-                x += 1;
-            }
-            else if (px < x-1)
-            {
-                x -= 1;
-            }
-            else if (py > y+1)
-            {
-                y += 1;
-            }
-            else if (py < y-1)
-            {
-                y -= 1;
-            }
-            else
-            {
-                damagePlayer += damage;
-            }
-
-            return damagePlayer;
-
-        }
-
-        public void Render()
-        {
-            current.Draw(getGlobalX(),getGlobalY());
+            current.Draw(globalX,globalY);
         }
 
         public int getGlobalX()

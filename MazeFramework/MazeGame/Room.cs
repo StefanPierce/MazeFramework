@@ -1,4 +1,5 @@
-﻿using MazeFramework.MazeGame;
+﻿using MazeFramework.Engine;
+using MazeFramework.MazeGame;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,6 @@ namespace MazeFramework
 
 
         public static int roomCounter = 0;
-
-        Random rand = new Random();
 
         int roomWidth, roomHeight;
 
@@ -79,14 +78,14 @@ namespace MazeFramework
 
         public void GenerateEnemies()
         {
-            int num = rand.Next(1, 3);
+            int num = InputHandler.getRandom(0, 4);
 
             int x, y;
 
             for(int i = 0; i < num; i++)
             {
-                x = rand.Next(1, roomWidth-1);
-                y = rand.Next(1, roomHeight-1);
+                x = InputHandler.getRandom(1, roomWidth-1);
+                y = InputHandler.getRandom(1, roomHeight-1);
                 enemies.Add(new Enemy($"ENEMY{i}", ENEMY.ENEMY1, x, y));
             }
         }
@@ -127,7 +126,7 @@ namespace MazeFramework
         {
             for (int i = 0; i < 10; i++)
             {
-                treasures.Add(new Treasure("Treasure", TREASURE.COIN, rand.Next(1, roomWidth - 1), rand.Next(1, roomHeight - 1)));
+                treasures.Add(new Treasure("Treasure", TREASURE.COIN, InputHandler.getRandom(1, roomWidth - 1), InputHandler.getRandom(1, roomHeight - 1)));
             }
         }
         
@@ -173,13 +172,51 @@ namespace MazeFramework
             }
         }
 
+        public void HitEnemies(int damage, Vector2 pos)
+        {
+            foreach(Enemy e in enemies) { 
+                if(e.getX() == (int)pos.X && e.getY() == (int)pos.Y){
+                    e.Hit(damage);
+                }
+            }
+        }
+
+        public void ClearEnemies()
+        {
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                if (enemies[i].dead)
+                {
+                    enemies.RemoveAt(i);
+                }
+            }
+        }
+
         public int UpdateEnemies(int x, int y)
         {
             int damage = 0;
             foreach(Enemy e in enemies)
             {
                 damage += e.Update(x,y);
+
+                
             }
+
+            foreach(Enemy e in enemies)
+            {
+                foreach (Enemy e2 in enemies)
+                {
+                    if (!e.name.Equals(e2.name))
+                    {
+                        if (e.getX() == e2.getX() && e.getY() == e2.getY()) {
+                            e.MoveBack();
+                            continue;
+                        }
+                        
+                    }
+                }
+            }
+            
             return damage;
         }
 

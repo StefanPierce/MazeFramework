@@ -64,7 +64,7 @@ namespace MazeFramework
         public override void Render()
         {
 
-           
+
 
             cam.ApplyTran();
 
@@ -103,43 +103,48 @@ namespace MazeFramework
 
 
 
-                for (int y = 0; y < around.GetLength(1); y++)
+            for (int y = 0; y < around.GetLength(1); y++)
+            {
+                for (int x = 0; x < around.GetLength(0); x++)
                 {
-                    for (int x = 0; x < around.GetLength(0); x++)
+                    try
                     {
-                        try
-                        {
-                            around[x, y] = grid[p1.getMazeX() - (1 - x), p1.getMazeY() - (1 - y)];
-                        }
-                        catch (Exception e)
-                        {
-                            around[x, y] = Tiles.FLOOR;
-                        }
-
+                        around[x, y] = grid[p1.getMazeX() - (1 - x), p1.getMazeY() - (1 - y)];
                     }
+                    catch (Exception e)
+                    {
+                        around[x, y] = Tiles.FLOOR;
+                    }
+
                 }
+            }
 
-                p1.Update(around);
-
-                p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
-                room.clearTreasures();
+            int damage = p1.Update(around);
 
 
+            p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
+            room.HitEnemies(damage, p1.lookingAt());
 
-                Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
-                Direction d = p1.getDirection();
+            room.ClearEnemies();
+            room.clearTreasures();
 
-                if (playerPos == Tiles.PASSAGE)
+
+
+
+            Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
+            Direction d = p1.getDirection();
+
+            if (playerPos == Tiles.PASSAGE)
+            {
+                if (room.getPassage(d).isExit)
                 {
-                    if (room.getPassage(d).isExit)
-                    {
-                        Console.WriteLine("YOU FINISHED THE GAME");
-                    }
-                    else
-                    {
-                        switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
-                    }
+                    Console.WriteLine("YOU FINISHED THE GAME");
                 }
+                else
+                {
+                    switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
+                }
+            }
 
             if (!p1.moving)
             {
@@ -163,7 +168,7 @@ namespace MazeFramework
             cam.Update(p1.getCameraTransform(zoom), zoom);
         }
 
-        
+
 
         public override iGameState switchTo()
         {

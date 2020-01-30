@@ -37,6 +37,31 @@ namespace MazeFramework
             
         }
 
+        public Vector2 lookingAt()
+        {
+            switch (direction)
+            {
+                case Direction.NORTH:
+                    return new Vector2(x, y + 1);
+                    break;
+                case Direction.EAST:
+
+                    return new Vector2(x+1, y);
+                    break;
+                case Direction.SOUTH:
+
+                    return new Vector2(x, y - 1);
+                    break;
+                case Direction.WEST:
+
+                    return new Vector2(x - 1, y);
+                    break;
+            }
+
+            return new Vector2();
+
+        }
+
         public void setMoving()
         {
             moving = true;
@@ -116,8 +141,10 @@ namespace MazeFramework
             Console.WriteLine(wealth);
         }
 
-        public void Update(Tiles[,] around)
+        public int Update(Tiles[,] around)
         {
+            int deal = 0;
+
             if (globalX != getGlobalX() || globalY != getGlobalY())
             {
                 if (globalX < getGlobalX())
@@ -187,10 +214,16 @@ namespace MazeFramework
                         direction = Direction.EAST;
                         current = right;
                     }
+                    if (InputHandler.playerAttack())
+                    {
+                        moving = false;
+                        deal += wealth;
+                    }
                 }
                 
             }
 
+            return deal;
             
         }
 

@@ -10,11 +10,10 @@ namespace MazeFramework
     public class Maze
     {
         List<Room> rooms;
-        Random rand;
 
         public Maze(int roomCount)
         {
-            rand = new Random();
+            
 
             rooms = new List<Room>();
 
@@ -23,17 +22,22 @@ namespace MazeFramework
             {
                 rooms.Add(
                     new Room(
-                        rand.Next(ConfigSettings.minRoomHeight,ConfigSettings.maxRoomHeight),
-                        rand.Next(ConfigSettings.minRoomWidth, ConfigSettings.maxRoomWidth))
+                        InputHandler.getRandom(ConfigSettings.minRoomHeight,ConfigSettings.maxRoomHeight),
+                        InputHandler.getRandom(ConfigSettings.minRoomWidth, ConfigSettings.maxRoomWidth))
                     );
             }
 
             GeneratePassage(0,(Direction)0);
 
-            Console.WriteLine(AddExit(rand.Next(0, rooms.Count-1)) ? "exit added" : "exit not added");
+            Console.WriteLine(AddExit(InputHandler.getRandom(0, rooms.Count-1)) ? "exit added" : "exit not added");
+
+            GenerateExtraPassages();
 
 
+        }
 
+        private void GenerateExtraPassages()
+        {
 
         }
 
@@ -50,10 +54,10 @@ namespace MazeFramework
             Direction r1 = prevDir;
             while (r1 == prevDir)
             {
-                r1 = (Direction)rand.Next(0, 3);
+                r1 = (Direction)InputHandler.getRandom(0, 3);
             }
 
-            Direction r2 = (Direction)rand.Next(0, 3);
+            Direction r2 = (Direction)InputHandler.getRandom(0, 3);
 
             if (rooms[otherRoom].addPassage(r2, i, r1))
             {

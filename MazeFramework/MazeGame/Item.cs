@@ -8,7 +8,7 @@ namespace MazeFramework.MazeGame
 {
     public abstract class Item
     {
-        String name;
+        public String name { get; private set; }
 
         public Item(string name)
         {
