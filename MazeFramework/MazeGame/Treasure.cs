@@ -21,6 +21,8 @@ namespace MazeFramework.MazeGame
         Texture2D texTres;
         int x;
         int y;
+        int offsetX;
+        int offsetY;
 
         int tileSize = 16;
 
@@ -31,6 +33,9 @@ namespace MazeFramework.MazeGame
 
             this.x = x;
             this.y = y;
+
+            offsetX = InputHandler.getRandom(-4, 4);
+            offsetY = InputHandler.getRandom(-4, 4);
 
             switch (type)
             {
@@ -63,7 +68,7 @@ namespace MazeFramework.MazeGame
 
         public void Render()
         {
-            texTres.Draw(getGlobalX(), getGlobalY());
+            texTres.Draw(getGlobalX()+offsetX, getGlobalY()+offsetY);
         }
 
         public int pickUp()

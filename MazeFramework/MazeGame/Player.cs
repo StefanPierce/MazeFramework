@@ -22,7 +22,7 @@ namespace MazeFramework
 
         int tileSize = 16;
 
-        public Boolean moving { get; private set; } = false;
+        public Boolean moving { get; private set; } = true;
 
         public Player()
         {
@@ -37,6 +37,11 @@ namespace MazeFramework
             
         }
 
+        public void setMoving()
+        {
+            moving = true;
+        }
+        
         public void setFaceAwayFrom(Direction d)
         {
             switch (d)
@@ -105,6 +110,12 @@ namespace MazeFramework
             globalY = getGlobalY();
         }
 
+        public void Hit(int damage)
+        {
+            wealth -= damage;
+            Console.WriteLine(wealth);
+        }
+
         public void Update(Tiles[,] around)
         {
             if (globalX != getGlobalX() || globalY != getGlobalY())
@@ -129,48 +140,55 @@ namespace MazeFramework
             }
             else
             {
-                
-                if (InputHandler.playerUp())
+                if (moving)
                 {
-                    if (direction == Direction.NORTH && around[1, 2] != Tiles.WALL) 
+                    if (InputHandler.playerUp())
                     {
-                        y += 1;
+                        if (direction == Direction.NORTH && around[1, 2] != Tiles.WALL)
+                        {
+                            y += 1;
+                            moving = false;
+                        }
+                        direction = Direction.NORTH;
+                        current = up;
                     }
-                    direction = Direction.NORTH;
-                    current = up;
-                }
-                if (InputHandler.playerDown())
-                {
-                    if (direction == Direction.SOUTH && around[1, 0] != Tiles.WALL)
+                    if (InputHandler.playerDown())
                     {
-                        y -= 1;
-                    }
-                    else
-                    {
-                       
-                    }
-                    direction = Direction.SOUTH;
-                    current = down;
-                }
-                if (InputHandler.playerLeft())
-                {
-                    if (direction == Direction.WEST && around[0, 1] != Tiles.WALL)
-                    {
-                        x -= 1;
+                        if (direction == Direction.SOUTH && around[1, 0] != Tiles.WALL)
+                        {
+                            y -= 1;
+                            moving = false;
+                        }
+                        else
+                        {
 
+                        }
+                        direction = Direction.SOUTH;
+                        current = down;
                     }
-                    direction = Direction.WEST;
-                    current = left;
-                }
-                if (InputHandler.playerRight())
-                {
-                    if (direction == Direction.EAST && around[2, 1] != Tiles.WALL)
+                    if (InputHandler.playerLeft())
                     {
-                        x += 1;
+                        if (direction == Direction.WEST && around[0, 1] != Tiles.WALL)
+                        {
+                            x -= 1;
+                            moving = false;
+
+                        }
+                        direction = Direction.WEST;
+                        current = left;
                     }
-                    direction = Direction.EAST;
-                    current = right;
+                    if (InputHandler.playerRight())
+                    {
+                        if (direction == Direction.EAST && around[2, 1] != Tiles.WALL)
+                        {
+                            x += 1;
+                            moving = false;
+                        }
+                        direction = Direction.EAST;
+                        current = right;
+                    }
                 }
+                
             }
 
             

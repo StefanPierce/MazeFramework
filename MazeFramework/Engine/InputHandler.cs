@@ -23,7 +23,7 @@ namespace MazeFramework
             state = Keyboard.GetState();
         }
 
-        public int getRandom(int low, int high)
+        public static int getRandom(int low, int high)
         {
             return random.Next(low, high);
         }

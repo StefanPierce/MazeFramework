@@ -32,7 +32,6 @@ namespace MazeTesting
 
             TraverseRooms(ref room);
             int count = 0;
-            Console.WriteLine(counter);
 
             foreach (Room r in maze.getRooms())
             {
@@ -48,10 +47,8 @@ namespace MazeTesting
             
         }
 
-        int counter = 0;
         public void TraverseRooms(ref Room r)
         {
-            counter++;
             r.setVisited();
 
             if(r.getPassages() != null)

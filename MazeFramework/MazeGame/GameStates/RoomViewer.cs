@@ -90,7 +90,7 @@ namespace MazeFramework
 
 
             room.RenderTreasures();
-
+            room.RenderEnemies();
             p1.Render();
 
         }
@@ -101,45 +101,52 @@ namespace MazeFramework
             around = new Tiles[3, 3];
 
 
-            
 
-            for (int y = 0; y < around.GetLength(1); y++)
-            {
-                for (int x = 0; x < around.GetLength(0); x++)
+                for (int y = 0; y < around.GetLength(1); y++)
                 {
-                    try
+                    for (int x = 0; x < around.GetLength(0); x++)
                     {
-                        around[x, y] = grid[p1.getMazeX() - (1 - x), p1.getMazeY() - (1 - y)];
-                    }
-                    catch (Exception e)
-                    {
-                        around[x, y] = Tiles.FLOOR;
-                    }
+                        try
+                        {
+                            around[x, y] = grid[p1.getMazeX() - (1 - x), p1.getMazeY() - (1 - y)];
+                        }
+                        catch (Exception e)
+                        {
+                            around[x, y] = Tiles.FLOOR;
+                        }
 
+                    }
                 }
+
+                p1.Update(around);
+
+                p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
+                room.clearTreasures();
+
+
+
+                Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
+                Direction d = p1.getDirection();
+
+                if (playerPos == Tiles.PASSAGE)
+                {
+                    if (room.getPassage(d).isExit)
+                    {
+                        Console.WriteLine("YOU FINISHED THE GAME");
+                    }
+                    else
+                    {
+                        switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
+                    }
+                }
+
+            if (!p1.moving)
+            {
+                p1.Hit(room.UpdateEnemies(p1.getMazeX(), p1.getMazeY()));
+                p1.setMoving();
             }
 
-            p1.Update(around);
 
-            p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
-            room.clearTreasures();
-            
-
-
-            Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
-            Direction d = p1.getDirection();
-
-            if (playerPos == Tiles.PASSAGE)
-            {
-                if (room.getPassage(d).isExit)
-                {
-                    Console.WriteLine("YOU FINISHED THE GAME");
-                }
-                else
-                {
-                    switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
-                }
-            }
 
 
             if (InputHandler.isZoomIn())
@@ -154,6 +161,8 @@ namespace MazeFramework
 
             cam.Update(p1.getCameraTransform(zoom), zoom);
         }
+
+        
 
         public override iGameState switchTo()
         {

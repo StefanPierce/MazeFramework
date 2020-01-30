@@ -82,6 +82,7 @@
     <Compile Include="Engine\Game.cs" />
     <Compile Include="Engine\iGameState.cs" />
     <Compile Include="Engine\InputHandler.cs" />
+    <Compile Include="MazeGame\Enemy.cs" />
     <Compile Include="MazeGame\GameStates\ExitState.cs" />
     <Compile Include="MazeGame\GameStates\HDRoomViewer.cs" />
     <Compile Include="MazeGame\GameStates\MainMenu.cs" />
@@ -140,8 +141,8 @@
     <Content Include="Sprites\Player\Down.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sprites\Player\Front.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Sprites\Enemies\Enemy1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprites\Player\Left.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
