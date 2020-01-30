@@ -33,9 +33,6 @@ namespace MazeFramework
 
         Tiles[,] grid;
 
-        static Passage[] passages;
-
-
         public static int roomCounter = 0;
 
         int roomWidth, roomHeight;
@@ -124,7 +121,7 @@ namespace MazeFramework
 
         public void GenerateTreasures()
         {
-            for (int i = 0; i < InputHandler.getRandom(5,50); i++)
+            for (int i = 0; i < InputHandler.getRandom(5,100); i++)
             {
                 treasures.Add(new Treasure("Treasure", TREASURE.COIN, InputHandler.getRandom(1, roomWidth - 1), InputHandler.getRandom(1, roomHeight - 1)));
             }
@@ -257,16 +254,12 @@ namespace MazeFramework
             {
                 case Direction.NORTH:
                     return new Vector2( grid.GetLength(0) / 2, grid.GetLength(1) - 2);
-                    break;
                 case Direction.EAST:
                     return new Vector2(grid.GetLength(0) - 2, grid.GetLength(1) / 2);
-                    break;
                 case Direction.SOUTH:
                     return new Vector2(grid.GetLength(0) / 2, 1);
-                    break;
                 case Direction.WEST:
                     return new Vector2(1, grid.GetLength(1) / 2);
-                    break;
             }
 
             return new Vector2(grid.GetLength(0) / 2, grid.GetLength(1) / 2);
@@ -355,16 +348,12 @@ namespace MazeFramework
             {
                 case Direction.NORTH:
                     return north != null;
-                    break;
                 case Direction.EAST:
                     return east != null;
-                    break;
                 case Direction.SOUTH:
                     return south != null;
-                    break;
                 case Direction.WEST:
                     return west != null;
-                    break;
             }
             return false;
         }

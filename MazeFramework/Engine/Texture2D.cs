@@ -20,8 +20,6 @@ namespace MazeFramework
         public int width { get; }
         public int height { get; }
 
-        int x = 0;
-
         public Texture2D(int id, int w, int h)
         {
             this.id = id;

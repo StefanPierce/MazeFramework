@@ -27,6 +27,7 @@ namespace MazeFramework.MazeGame.GameStates
 
         public override void Update()
         {
+           
         }
     }
 }

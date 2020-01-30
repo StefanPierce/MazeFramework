@@ -30,6 +30,7 @@ namespace MazeFramework
         }
 
 
+
         public static Boolean fullScreen()
         {
             if ((state.IsKeyDown(Key.AltLeft) && state.IsKeyDown(Key.Enter)))

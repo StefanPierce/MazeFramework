@@ -48,12 +48,12 @@ namespace MazeFramework.MazeGame
         
         public int getGlobalX()
         {
-            return x * 16;
+            return x * tileSize;
         }
 
         public int getGlobalY()
         {
-            return y * 16;
+            return y * tileSize;
         }
 
         public int getX()

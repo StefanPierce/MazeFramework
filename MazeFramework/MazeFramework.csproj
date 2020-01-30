@@ -89,7 +89,6 @@
     <Compile Include="MazeGame\GameStates\MainMenu.cs" />
     <Compile Include="MazeGame\Item.cs" />
     <Compile Include="MazeGame\Maze.cs" />
-    <Compile Include="MazeGame\GameStates\MazeViewer.cs" />
     <Compile Include="MazeGame\Passage.cs" />
     <Compile Include="MazeGame\Player.cs" />
     <Compile Include="MazeGame\Treasure.cs" />

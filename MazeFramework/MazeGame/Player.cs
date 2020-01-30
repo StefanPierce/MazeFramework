@@ -34,7 +34,7 @@ namespace MazeFramework
             current = up;
             direction = Direction.NORTH;
 
-            
+
         }
 
         public Vector2 lookingAt()
@@ -43,19 +43,15 @@ namespace MazeFramework
             {
                 case Direction.NORTH:
                     return new Vector2(x, y + 1);
-                    break;
                 case Direction.EAST:
 
-                    return new Vector2(x+1, y);
-                    break;
+                    return new Vector2(x + 1, y);
                 case Direction.SOUTH:
 
                     return new Vector2(x, y - 1);
-                    break;
                 case Direction.WEST:
 
                     return new Vector2(x - 1, y);
-                    break;
             }
 
             return new Vector2();
@@ -66,7 +62,7 @@ namespace MazeFramework
         {
             moving = true;
         }
-        
+
         public void setFaceAwayFrom(Direction d)
         {
             switch (d)
@@ -99,12 +95,12 @@ namespace MazeFramework
         {
             current.Draw(globalX, globalY);
 
-            
+
         }
 
         public Vector2 getCameraTransform(float scale)
         {
-            return new Vector2((globalX - ConfigSettings.iResWidth / (2*scale))+current.width/2, (globalY- ConfigSettings.iResHeight / (2*scale))+current.height/2);
+            return new Vector2((globalX - ConfigSettings.iResWidth / (2 * scale)) + current.width / 2, (globalY - ConfigSettings.iResHeight / (2 * scale)) + current.height / 2);
         }
 
         public int getGlobalX()
@@ -220,11 +216,11 @@ namespace MazeFramework
                         deal += wealth;
                     }
                 }
-                
+
             }
 
             return deal;
-            
+
         }
 
         internal void pickUpMoney(int v)

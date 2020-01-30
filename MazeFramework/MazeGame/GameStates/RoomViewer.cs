@@ -31,6 +31,8 @@ namespace MazeFramework
 
         public RoomViewer()
         {
+            
+
             floor = ContentLoader.LoadTexture("Sprites/Room1/Floor.png");
             wall = ContentLoader.LoadTexture("Sprites/Room1/Wall.png");
             passage = ContentLoader.LoadTexture("Sprites/Room1/Passage.png");
@@ -114,7 +116,7 @@ namespace MazeFramework
                     {
                         around[x, y] = grid[p1.getMazeX() - (1 - x), p1.getMazeY() - (1 - y)];
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         around[x, y] = Tiles.FLOOR;
                     }

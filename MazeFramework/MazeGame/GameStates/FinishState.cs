@@ -8,7 +8,7 @@ namespace MazeFramework.MazeGame.GameStates
 {
     class FinishState : iGameState
     {
-
+        iGameState next = null;
         public FinishState(int score)
         {
             Console.WriteLine($"YOU HAD THIS MUCH MONEY: {score}");
@@ -27,11 +27,16 @@ namespace MazeFramework.MazeGame.GameStates
 
         public override iGameState switchTo()
         {
-            return null;
+            return next;
         }
 
         public override void Update()
         {
+            if (InputHandler.playerAttack())
+            {
+                next = new RoomViewer();
+
+            }
         }
     }
 }
