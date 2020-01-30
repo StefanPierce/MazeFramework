@@ -8,15 +8,24 @@ namespace MazeFramework.MazeGame
 {
     public class Passage
     {
-        Boolean isExit;
+        public Boolean isExit { get; private set; } = false;
         int connectionID;
         Direction exitPosition;
+
+        
 
         public Passage(int id, Direction d)
         {
             connectionID = id;
             exitPosition = d;
         }
+
+        public Passage(bool exit)
+        {
+            isExit = exit;
+            
+        }
+
 
         public Direction getExitDirection()
         {

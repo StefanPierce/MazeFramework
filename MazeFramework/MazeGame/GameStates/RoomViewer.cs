@@ -12,7 +12,6 @@ namespace MazeFramework
     class RoomViewer : iGameState
     {
         protected Room room;
-        protected Room switchToRoom;
         protected Tiles[,] grid;
         protected Texture2D floor, wall, passage;
 
@@ -36,7 +35,8 @@ namespace MazeFramework
             UIMoney = ContentLoader.LoadTexture("Sprites/Treasures/UI.png");
 
             maze = new Maze(ConfigSettings.roomCount);
-            room = maze.getRoom(1);
+            maze.GenerateTreasures();
+            room = maze.getRoom(0);
 
 
             p1 = new Player();
@@ -52,7 +52,6 @@ namespace MazeFramework
             p1.setPos(room.getEntrancePos(exitDirection));
             p1.setFaceAwayFrom(exitDirection);
             grid = room.getTilesForRender();
-            Console.WriteLine($"SWITCHING TO ROOM: {room.ROOMID()}");
         }
 
         public override void Load()
@@ -132,7 +131,14 @@ namespace MazeFramework
 
             if (playerPos == Tiles.PASSAGE)
             {
-                switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
+                if (room.getPassage(d).isExit)
+                {
+                    Console.WriteLine("YOU FINISHED THE GAME");
+                }
+                else
+                {
+                    switchRoom(maze.getRoom(room.getPassage(d).getConnection()), room.getPassage(d).getExitDirection());
+                }
             }
 
 

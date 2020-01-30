@@ -15,10 +15,17 @@ namespace MazeFramework
         private static int up, down, left, right = 0;
         private static int timeoutTime = 10;
 
+        private static Random random = new Random();
+
         public static void updateState()
         {
             prevState = state;
             state = Keyboard.GetState();
+        }
+
+        public int getRandom(int low, int high)
+        {
+            return random.Next(low, high);
         }
 
 

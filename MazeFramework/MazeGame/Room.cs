@@ -12,7 +12,8 @@ namespace MazeFramework
     {
         FLOOR,
         WALL,
-        PASSAGE
+        PASSAGE,
+        EXIT
     }
 
     public enum Direction
@@ -36,13 +37,21 @@ namespace MazeFramework
 
         public static int roomCounter = 0;
 
-       
+        Random rand = new Random();
+
+        int roomWidth, roomHeight;
+
 
         List<Treasure> treasures;
+
+        public Boolean isVisited { get; private set; }  = false;
+
 
         public Room(int width, int height)
         {
             roomID = getRoomID();
+            roomWidth = width;
+            roomHeight = height;
 
             grid = new Tiles[width, height];
             for (int y = 0; y < grid.GetLength(1); y++)
@@ -63,10 +72,48 @@ namespace MazeFramework
 
             treasures = new List<Treasure>();
 
-            Random rand = new Random();
-            for(int i = 0; i < 10; i++)
+            
+        }
+
+        
+        public void setVisited()
+        {
+            isVisited = true;
+        }
+
+        public Passage[] getPassages()
+        {
+            return new Passage[] { north, east, south, west };
+        }
+
+        public int getPassageCount()
+        {
+            int count = 0;
+            if (north != null)
             {
-                treasures.Add(new Treasure("Treasure", TREASURE.COIN, rand.Next(1,width-1), rand.Next(1, height - 1)));
+                count++;
+            }
+            if (south != null)
+            {
+                count++;
+            }
+            if (south != null)
+            {
+                count++;
+            }
+            if (south != null)
+            {
+                count++;
+            }
+
+            return count;
+        }
+
+        public void GenerateTreasures()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                treasures.Add(new Treasure("Treasure", TREASURE.COIN, rand.Next(1, roomWidth - 1), rand.Next(1, roomHeight - 1)));
             }
         }
 
@@ -110,7 +157,7 @@ namespace MazeFramework
         private int getRoomID()
         {
             roomCounter++;
-            return roomCounter;
+            return roomCounter-1;
         }
 
         public Tiles[,] getTilesForRender()
@@ -192,9 +239,45 @@ namespace MazeFramework
                     }
                     break;
             }
+            return false;
+        }
+
+        public Boolean AddExit()
+        {
+            Console.WriteLine("PASSAGE ADDED TO ROOM " + roomID);
+            Passage p = new Passage(true);
+
+            if (north == null)
+            {
+                north = p;
+                grid[grid.GetLength(0) / 2, grid.GetLength(1) - 1] = Tiles.PASSAGE;
+                return true;
+            }
+            else if (south == null)
+            {
+                south = p;
+                grid[grid.GetLength(0) / 2, 0] = Tiles.PASSAGE;
+                return true;
+
+            }
+            else if (east == null)
+            {
+                east = p;
+                grid[grid.GetLength(0) - 1, grid.GetLength(1) / 2] = Tiles.PASSAGE;
+                return true;
+
+            }
+            else if (west == null)
+            {
+                west = p;
+                grid[0, grid.GetLength(1) / 2] = Tiles.PASSAGE;
+                return true;
+
+            }
 
             return false;
         }
+
 
         public Boolean doesPassageExist(Direction d)
         {
