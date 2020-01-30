@@ -124,7 +124,7 @@ namespace MazeFramework
 
         public void GenerateTreasures()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < InputHandler.getRandom(5,50); i++)
             {
                 treasures.Add(new Treasure("Treasure", TREASURE.COIN, InputHandler.getRandom(1, roomWidth - 1), InputHandler.getRandom(1, roomHeight - 1)));
             }

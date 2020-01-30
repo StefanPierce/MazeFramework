@@ -38,7 +38,32 @@ namespace MazeFramework
 
         private void GenerateExtraPassages()
         {
+            for (int i = 0; i < rooms.Count; i++)
+            {
 
+
+                for (int x = 0; x < 2; x++)
+                {
+                    int otherRoom = i;
+                    while (otherRoom == i)
+                    {
+                        otherRoom = InputHandler.getRandom(0, rooms.Count);
+                    }
+
+                    Direction r1 = (Direction)InputHandler.getRandom(0, 4);
+                    Direction r2 = (Direction)InputHandler.getRandom(0, 4);
+
+                    if (!rooms[i].doesPassageExist(r1))
+                    {
+                        if (rooms[otherRoom].addPassage(r2, i, r1))
+                        {
+                            rooms[i].addPassage(r1, otherRoom, r2);
+                            
+
+                        }
+                    }
+                }
+            }
         }
 
         private void GeneratePassage(int i, Direction prevDir)
@@ -54,10 +79,10 @@ namespace MazeFramework
             Direction r1 = prevDir;
             while (r1 == prevDir)
             {
-                r1 = (Direction)InputHandler.getRandom(0, 3);
+                r1 = (Direction)InputHandler.getRandom(0, 4);
             }
 
-            Direction r2 = (Direction)InputHandler.getRandom(0, 3);
+            Direction r2 = (Direction)InputHandler.getRandom(0, 4);
 
             if (rooms[otherRoom].addPassage(r2, i, r1))
             {

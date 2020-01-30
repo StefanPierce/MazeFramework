@@ -60,26 +60,7 @@ namespace MazeFramework.MazeGame
             prevY = y;
             
 
-            if (px > x+1)
-            {
-                x += 1;
-                return 0;
-            }
-           
-            else if (px < x-1)
-            {
-                x -= 1;
-                return 0;
-            }
-
-            if (py > y + 1)
-            {
-                y += 1;
-            }
-            else if (py < y-1)
-            {
-                y -= 1;
-            }
+            
             
 
             if((px == x && py - 1 == y) || (px == x && py + 1 == y) || 
@@ -89,7 +70,25 @@ namespace MazeFramework.MazeGame
             }
             else
             {
+                if (px > x + 1)
+                {
+                    x += 1;
+                    return 0;
+                }
 
+                else if (px < x - 1)
+                {
+                    x -= 1;
+                    return 0;
+                }
+                else if (py > y + 1)
+                {
+                    y += 1;
+                }
+                else if (py < y - 1)
+                {
+                    y -= 1;
+                }
             }
 
 

@@ -35,9 +35,9 @@ namespace MazeFramework.Engine
             loadFromConfig(ref minRoomWidth, "minRoomWidth");
             loadFromConfig(ref maxRoomHeight, "maxRoomHeight");
             loadFromConfig(ref minRoomHeight, "minRoomHeight");
-            loadFromConfig(ref seed, "seed");
-
-
+            //loadFromConfig(ref seed, "seed");
+            Random rand = new Random();
+            seed = rand.Next(0, 999999);
 
         }
 

@@ -84,6 +84,7 @@
     <Compile Include="Engine\InputHandler.cs" />
     <Compile Include="MazeGame\Enemy.cs" />
     <Compile Include="MazeGame\GameStates\ExitState.cs" />
+    <Compile Include="MazeGame\GameStates\FinishState.cs" />
     <Compile Include="MazeGame\GameStates\HDRoomViewer.cs" />
     <Compile Include="MazeGame\GameStates\MainMenu.cs" />
     <Compile Include="MazeGame\Item.cs" />

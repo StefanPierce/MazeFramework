@@ -80,19 +80,33 @@ namespace MazeTesting
         
 
         [TestCase(10)]
-        [TestCase(100)]
-        [TestCase(1000)]
-        public void VerifyExitIsReachable(int n)
+        [TestCase(20)]
+        [TestCase(50)]
+        public void VerifyExitExists(int n)
         {
             maze = new Maze(n);
-            Room room = maze.getRoom(0);
-            Assert.True(FindExit(room,0));
+
+            bool exit = false;
+            foreach(Room r in maze.getRooms())
+            {
+                foreach(Passage p in r.getPassages())
+                {
+                    if (p != null)
+                    {
+                        if (p.isExit)
+                        {
+                            exit = true;
+                        }
+                    }
+                }
+            }
+
+            Assert.True(exit, "Exit has been found");
 
         }
 
         public bool FindExit(Room r, int prevRoomID)
         {
-            r.setVisited();
 
             if (r.getPassages() != null)
             {

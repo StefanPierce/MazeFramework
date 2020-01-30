@@ -18,7 +18,7 @@ namespace MazeFramework
         int globalY;
         Direction direction;
 
-        int wealth = 100;
+        public int wealth { get; private set; } = 100;
 
         int tileSize = 16;
 

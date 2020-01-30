@@ -1,4 +1,5 @@
 ﻿using MazeFramework.Engine;
+using MazeFramework.MazeGame.GameStates;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -25,6 +26,8 @@ namespace MazeFramework
 
         Maze maze;
         Tiles[,] around = new Tiles[0, 0];
+
+        iGameState nextScene = null;
 
         public RoomViewer()
         {
@@ -138,7 +141,7 @@ namespace MazeFramework
             {
                 if (room.getPassage(d).isExit)
                 {
-                    Console.WriteLine("YOU FINISHED THE GAME");
+                    nextScene = new FinishState(p1.wealth);
                 }
                 else
                 {
@@ -172,7 +175,7 @@ namespace MazeFramework
 
         public override iGameState switchTo()
         {
-            return null;
+            return nextScene;
         }
 
         public override void RenderOverlay()
