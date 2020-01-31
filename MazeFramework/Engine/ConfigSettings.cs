@@ -36,6 +36,11 @@ namespace MazeFramework.Engine
             loadFromConfig(ref maxRoomHeight, "maxRoomHeight");
             loadFromConfig(ref minRoomHeight, "minRoomHeight");
             loadFromConfig(ref seed, "seed");
+            if(seed == -1)
+            {
+                Random random = new Random();
+                seed = random.Next();
+            }
             
 
         }
