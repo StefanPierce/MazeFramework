@@ -193,27 +193,9 @@ namespace MazeFramework
 
         public override void RenderOverlay()
         {
-            //for (int y = 0; y < around.GetLength(1); y++)
-            //{
-            //    for (int x = 0; x < around.GetLength(0); x++)
-            //    {
-            //        switch (around[x, y])
-            //        {
-            //            case Tiles.FLOOR:
-            //                floor.Draw(16 * x, 16 * y);
-            //                break;
-            //            case Tiles.WALL:
-            //                wall.Draw(16 * x, 16 * y);
-            //                break;
-            //            case Tiles.PASSAGE:
-            //                passage.Draw(16 * x, 16 * y);
-            //                break;
-            //        }
-            //    }
-
-            //}
-
             UIMoney.Draw(ConfigSettings.iResWidth - 80, ConfigSettings.iResHeight - 50);
+            NumberDrawer.DrawNumbers(p1.wealth, ConfigSettings.iResWidth - 80, ConfigSettings.iResHeight - 50);
+
         }
     }
 }
