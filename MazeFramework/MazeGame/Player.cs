@@ -245,7 +245,7 @@ namespace MazeFramework
                         moving = false;
                         deal += 100 + wealth;
                     }
-                    if (InputHandler.playerSelect())
+                    if (InputHandler.playerSelect() && wealth > 0)
                     {
                         moving = false;
                         wealth--;
