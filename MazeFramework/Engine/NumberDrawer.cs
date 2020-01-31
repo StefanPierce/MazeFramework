@@ -20,6 +20,8 @@ namespace MazeFramework.Engine
             }
         }
 
+
+
         public static void DrawNumbers(int number, int x, int y)
         {
             if(numbers == null)

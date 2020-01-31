@@ -18,6 +18,7 @@ namespace MazeFramework
 
         private static Random random = new Random(ConfigSettings.seed);
 
+        //store previous state then update state
         public static void updateState()
         {
             prevState = state;
@@ -30,7 +31,7 @@ namespace MazeFramework
         }
 
 
-
+        
         public static Boolean fullScreen()
         {
             if ((state.IsKeyDown(Key.AltLeft) && state.IsKeyDown(Key.Enter)))

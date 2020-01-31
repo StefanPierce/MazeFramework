@@ -37,6 +37,8 @@ namespace MazeFramework
 
         }
 
+        //return the x and y of where the player is looking
+
         public Vector2 lookingAt()
         {
             switch (direction)
@@ -63,6 +65,7 @@ namespace MazeFramework
             moving = true;
         }
 
+        //point the user away from this direction (used when entering through a door)
         public void setFaceAwayFrom(Direction d)
         {
             switch (d)
@@ -98,6 +101,7 @@ namespace MazeFramework
 
         }
 
+        //return a vector representing where the camera should be moved to
         public Vector2 getCameraTransform(float scale)
         {
             return new Vector2((globalX - ConfigSettings.iResWidth / (2 * scale)) + current.width / 2, (globalY - ConfigSettings.iResHeight / (2 * scale)) + current.height / 2);
@@ -123,6 +127,8 @@ namespace MazeFramework
             return y;
         }
 
+        //set pos without the game needing to tween between the two positions
+        //by setting global x and y 
         public void setPos(Vector2 vec)
         {
             x = (int)vec.X;
@@ -137,10 +143,15 @@ namespace MazeFramework
             Console.WriteLine(wealth);
         }
 
+        //Update function returns damage, this damage is then sent to an enemy if he is standing
+        //where the player attacks
         public int Update(Tiles[,] around)
         {
             int deal = 0;
 
+
+            //used to tween from where the character currently is to the expected grid
+            //(means that they dont just jump around the map they smoothly transition)
             if (globalX != getGlobalX() || globalY != getGlobalY())
             {
                 if (globalX < getGlobalX())
@@ -167,11 +178,14 @@ namespace MazeFramework
                 {
                     if (InputHandler.playerUp())
                     {
+                        //if where the player is looking is a wall or a passage, they cant move fowards
                         if (direction == Direction.NORTH && around[1, 2] != Tiles.WALL && around[1, 2] != Tiles.FAKEPASSAGE)
                         {
                             y += 1;
                             moving = false;
                         }
+
+                        //if a fake passage, write to console (TODO: display in game)
                         if (around[1,2] == Tiles.FAKEPASSAGE)
                         {
                             Console.WriteLine("CANT ENTER THIS PASSAGE");

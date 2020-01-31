@@ -20,6 +20,7 @@ namespace MazeFramework
                 throw new FileNotFoundException($"File not found at {path}");
             }
 
+            //Open GL calls to load the texture into memory and return a texture holding the pointer to the texture
             int id = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, id);
 

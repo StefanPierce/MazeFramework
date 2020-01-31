@@ -103,11 +103,8 @@ namespace MazeFramework
 
         public override void Update()
         {
-
+            //Collect the tiles that are currently around the player
             around = new Tiles[3, 3];
-
-
-
             for (int y = 0; y < around.GetLength(1); y++)
             {
                 for (int x = 0; x < around.GetLength(0); x++)
@@ -124,26 +121,30 @@ namespace MazeFramework
                 }
             }
 
+            //update player and return the amount of damage the player is dealing
             int damage = p1.Update(around);
 
-
+            //pick up any money the player is standing on
             p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
             
+            //damage = -1 means the player wants to drop a red coin
             if(damage == -1)
             {
                 room.dropCoin(p1.x, p1.y);
             }
             else
             {
+                //damage enemies based on damage and where the player is looking
                 room.HitEnemies(damage, p1.lookingAt());
             }
 
+            //delete killed enemies or picked up treasures
             room.ClearEnemies();
             room.clearTreasures();
 
 
 
-
+            //if player is standing on a passage send him to the new room
             Tiles playerPos = grid[p1.getMazeX(), p1.getMazeY()];
             Direction d = p1.getDirection();
 
@@ -151,6 +152,7 @@ namespace MazeFramework
             {
                 if (room.getPassage(d).isExit)
                 {
+                    //if the passage is marked as isExit, load the end of the game state
                     nextScene = new FinishState(p1.wealth);
                 }
                 else

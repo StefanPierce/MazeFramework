@@ -36,6 +36,8 @@ namespace MazeFramework
 
         }
 
+
+        //This will generate extra random passages after a straight path has been added
         private void GenerateExtraPassages()
         {
             for (int i = 0; i < rooms.Count; i++)
@@ -66,6 +68,8 @@ namespace MazeFramework
             }
         }
 
+        //will generate a path of passages from one room to the next, this means
+        //all rooms will be reachable
         private void GeneratePassage(int i, Direction prevDir)
         {
             

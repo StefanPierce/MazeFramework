@@ -36,6 +36,8 @@ namespace MazeFramework.Engine
             loadFromConfig(ref maxRoomHeight, "maxRoomHeight");
             loadFromConfig(ref minRoomHeight, "minRoomHeight");
             loadFromConfig(ref seed, "seed");
+            
+            //allows user to have a random seed if they enter -1 into config file
             if(seed == -1)
             {
                 Random random = new Random();
@@ -45,6 +47,8 @@ namespace MazeFramework.Engine
 
         }
 
+        //try load line from config xml, if not output to console what section was missing, and
+        //tell user that default value will be loaded
         private static void loadFromConfig(ref int i, string s)
         {
             

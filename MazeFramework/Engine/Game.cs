@@ -16,6 +16,7 @@ namespace MazeFramework
         private GameWindow window;
         iGameState current;
 
+        //Link render and update functions and create the main menu
         public Game(GameWindow window)
         {
             ConfigSettings.loadConfig();
@@ -30,6 +31,7 @@ namespace MazeFramework
             current = new MainMenu();
         }
 
+        //Open GL calls to set up renderer, then call the current state render function
         private void windowRenderFrame(object sender, FrameEventArgs e)
         {
             GL.LoadIdentity();
@@ -53,6 +55,7 @@ namespace MazeFramework
             window.SwapBuffers();
         }
 
+        //Update input handler, then the current state, and then check if new state should be loaded
         private void windowUpdateFrame(object sender, FrameEventArgs e)
         {
             InputHandler.updateState();
@@ -82,6 +85,7 @@ namespace MazeFramework
             }
         }
 
+        //initial loading of the window, set ortho view and enable transparency on images
         private void windowLoad(object sender, EventArgs e)
         {
 
