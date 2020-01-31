@@ -42,8 +42,8 @@ namespace MazeFramework
             maze = new Maze(ConfigSettings.roomCount);
             maze.GenerateTreasures();
             maze.GenerateEnemies();
-            room = maze.getRoom(0);
-
+            room = maze.getRoom(InputHandler.getRandom(0, ConfigSettings.roomCount-1));
+            Console.WriteLine(room.roomID);
 
             p1 = new Player();
             p1.setPos(room.getEntrancePos(Direction.EAST));
@@ -68,11 +68,7 @@ namespace MazeFramework
 
         public override void Render()
         {
-
-
-
             cam.ApplyTran();
-
 
             for (int y = 0; y < grid.GetLength(1); y++)
             {
@@ -97,6 +93,7 @@ namespace MazeFramework
 
             room.RenderTreasures();
             room.RenderEnemies();
+            room.RenderRedCoins();
             p1.Render();
 
         }
@@ -128,7 +125,15 @@ namespace MazeFramework
 
 
             p1.pickUpMoney(room.isTreasureAt(p1.getMazeX(), p1.getMazeY()));
-            room.HitEnemies(damage, p1.lookingAt());
+            
+            if(damage == -1)
+            {
+                room.dropCoin(p1.x, p1.y);
+            }
+            else
+            {
+                room.HitEnemies(damage, p1.lookingAt());
+            }
 
             room.ClearEnemies();
             room.clearTreasures();

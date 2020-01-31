@@ -13,8 +13,8 @@ namespace MazeFramework
         static KeyboardState state = Keyboard.GetState();
         static KeyboardState prevState = state;
 
-        private static int up, down, left, right, attack = 0;
-        private static int timeoutTime = 5;
+        private static int up, down, left, right, attack;
+        private static int timeoutTime = 10;
 
         private static Random random = new Random(ConfigSettings.seed);
 
@@ -62,6 +62,7 @@ namespace MazeFramework
             }
             return false;
         }
+
         public static Boolean playerLeft()
         {
             if (state.IsKeyDown(Key.A))

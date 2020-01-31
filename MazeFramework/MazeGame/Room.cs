@@ -40,8 +40,9 @@ namespace MazeFramework
 
         List<Treasure> treasures;
         List<Enemy> enemies;
+        List<RedCoin> redCoins;
 
-        public Boolean isVisited { get; private set; }  = false;
+        public Boolean isVisited { get; private set; } = false;
 
 
         public Room(int width, int height)
@@ -55,7 +56,7 @@ namespace MazeFramework
             {
                 for (int x = 0; x < grid.GetLength(0); x++)
                 {
-                    if (x == 0 || y == 0 || x == grid.GetLength(0)-1 || y == grid.GetLength(1)-1)
+                    if (x == 0 || y == 0 || x == grid.GetLength(0) - 1 || y == grid.GetLength(1) - 1)
                     {
                         grid[x, y] = Tiles.WALL;
                     }
@@ -69,8 +70,21 @@ namespace MazeFramework
 
             treasures = new List<Treasure>();
             enemies = new List<Enemy>();
+            redCoins = new List<RedCoin>();
 
-            
+        }
+
+        public void dropCoin(int x, int y)
+        {
+            redCoins.Add(new RedCoin("redcoin", x, y));
+        }
+
+        public void RenderRedCoins()
+        {
+            foreach(RedCoin r in redCoins)
+            {
+                r.Render();
+            }
         }
 
         public void GenerateEnemies()
@@ -79,10 +93,10 @@ namespace MazeFramework
 
             int x, y;
 
-            for(int i = 0; i < num; i++)
+            for (int i = 0; i < num; i++)
             {
-                x = InputHandler.getRandom(1, roomWidth-1);
-                y = InputHandler.getRandom(1, roomHeight-1);
+                x = InputHandler.getRandom(1, roomWidth - 1);
+                y = InputHandler.getRandom(1, roomHeight - 1);
                 enemies.Add(new Enemy($"ENEMY{i}", ENEMY.ENEMY1, x, y));
             }
         }
@@ -121,20 +135,20 @@ namespace MazeFramework
 
         public void GenerateTreasures()
         {
-            for (int i = 0; i < InputHandler.getRandom(5,100); i++)
+            for (int i = 0; i < InputHandler.getRandom(5, 100); i++)
             {
                 treasures.Add(new Treasure("Treasure", TREASURE.COIN, InputHandler.getRandom(1, roomWidth - 1), InputHandler.getRandom(1, roomHeight - 1)));
             }
         }
-        
+
 
         public int isTreasureAt(int mazeX, int mazeY)
         {
             int total = 0;
-            foreach(Treasure t in treasures)
+            foreach (Treasure t in treasures)
             {
-                
-                if(mazeX == t.getX() && mazeY == t.getY())
+
+                if (mazeX == t.getX() && mazeY == t.getY())
                 {
                     total += t.pickUp();
                 }
@@ -144,7 +158,7 @@ namespace MazeFramework
 
         public void clearTreasures()
         {
-            for(int i = treasures.Count-1; i >= 0;  i--)
+            for (int i = treasures.Count - 1; i >= 0; i--)
             {
                 if (treasures[i].delete)
                 {
@@ -155,7 +169,7 @@ namespace MazeFramework
 
         public void RenderTreasures()
         {
-            foreach(Treasure t in treasures)
+            foreach (Treasure t in treasures)
             {
                 t.Render();
             }
@@ -163,7 +177,7 @@ namespace MazeFramework
 
         public void RenderEnemies()
         {
-            foreach(Enemy e in enemies)
+            foreach (Enemy e in enemies)
             {
                 e.Render();
             }
@@ -171,8 +185,10 @@ namespace MazeFramework
 
         public void HitEnemies(int damage, Vector2 pos)
         {
-            foreach(Enemy e in enemies) { 
-                if(e.getX() == (int)pos.X && e.getY() == (int)pos.Y){
+            foreach (Enemy e in enemies)
+            {
+                if (e.getX() == (int)pos.X && e.getY() == (int)pos.Y)
+                {
                     e.Hit(damage);
                 }
             }
@@ -192,28 +208,29 @@ namespace MazeFramework
         public int UpdateEnemies(int x, int y)
         {
             int damage = 0;
-            foreach(Enemy e in enemies)
+            foreach (Enemy e in enemies)
             {
-                damage += e.Update(x,y);
+                damage += e.Update(x, y);
 
-                
+
             }
 
-            foreach(Enemy e in enemies)
+            foreach (Enemy e in enemies)
             {
                 foreach (Enemy e2 in enemies)
                 {
                     if (!e.name.Equals(e2.name))
                     {
-                        if (e.getX() == e2.getX() && e.getY() == e2.getY()) {
+                        if (e.getX() == e2.getX() && e.getY() == e2.getY())
+                        {
                             e.MoveBack();
                             continue;
                         }
-                        
+
                     }
                 }
             }
-            
+
             return damage;
         }
 
@@ -224,7 +241,7 @@ namespace MazeFramework
         private int getRoomID()
         {
             roomCounter++;
-            return roomCounter-1;
+            return roomCounter - 1;
         }
 
         public Tiles[,] getTilesForRender()
@@ -253,7 +270,7 @@ namespace MazeFramework
             switch (d)
             {
                 case Direction.NORTH:
-                    return new Vector2( grid.GetLength(0) / 2, grid.GetLength(1) - 2);
+                    return new Vector2(grid.GetLength(0) / 2, grid.GetLength(1) - 2);
                 case Direction.EAST:
                     return new Vector2(grid.GetLength(0) - 2, grid.GetLength(1) / 2);
                 case Direction.SOUTH:
@@ -278,7 +295,7 @@ namespace MazeFramework
                     }
                     break;
                 case Direction.EAST:
-                    if(east == null)
+                    if (east == null)
                     {
                         east = new Passage(id, eD);
                         grid[grid.GetLength(0) - 1, grid.GetLength(1) / 2] = Tiles.PASSAGE;
@@ -286,7 +303,7 @@ namespace MazeFramework
                     }
                     break;
                 case Direction.SOUTH:
-                    if(south == null)
+                    if (south == null)
                     {
                         south = new Passage(id, eD);
                         grid[grid.GetLength(0) / 2, 0] = Tiles.PASSAGE;
@@ -294,7 +311,7 @@ namespace MazeFramework
                     }
                     break;
                 case Direction.WEST:
-                    if(west == null)
+                    if (west == null)
                     {
                         west = new Passage(id, eD);
                         grid[0, grid.GetLength(1) / 2] = Tiles.PASSAGE;

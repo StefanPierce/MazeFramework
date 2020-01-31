@@ -15,7 +15,6 @@ namespace MazeFramework
         Texture2D title;
         Texture2D startbutton;
         Texture2D exitButton;
-        Texture2D configButton;
         Texture2D marker;
 
         iGameState nextScene = null;
@@ -28,7 +27,6 @@ namespace MazeFramework
             title = ContentLoader.LoadTexture("Sprites/Menu/Title.png");
             startbutton = ContentLoader.LoadTexture("Sprites/Menu/Start.png");
             exitButton = ContentLoader.LoadTexture("Sprites/Menu/Exit.png");
-            configButton = ContentLoader.LoadTexture("Sprites/Menu/Configure.png");
             marker = ContentLoader.LoadTexture("Sprites/Menu/Marker.png");
 
         }
@@ -39,8 +37,7 @@ namespace MazeFramework
 
             title.Draw(20, 100);
             startbutton.Draw(40, 70);
-            configButton.Draw(40, 50);
-            exitButton.Draw(40, 30);
+            exitButton.Draw(40, 50);
 
             marker.Draw(20, 70 - (selected*20));
         }
@@ -57,9 +54,6 @@ namespace MazeFramework
                     nextScene = new RoomViewer();
                     break;
                 case 1:
-                    nextScene = null;
-                    break;
-                case 2:
                     nextScene = new ExitState();
                     break;
                 default:
@@ -82,7 +76,7 @@ namespace MazeFramework
             }
             if (InputHandler.playerDown())
             {
-                selected = selected + 1 == 3 ? 0 : selected + 1;
+                selected = selected + 1 == 2 ? 0 : selected + 1;
             }
             if (InputHandler.playerSelect())
             {

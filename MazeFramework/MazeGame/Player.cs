@@ -18,7 +18,7 @@ namespace MazeFramework
         int globalY;
         Direction direction;
 
-        public int wealth { get; private set; } = 100;
+        public int wealth { get; private set; } = 0;
 
         int tileSize = 16;
 
@@ -213,7 +213,13 @@ namespace MazeFramework
                     if (InputHandler.playerAttack())
                     {
                         moving = false;
-                        deal += wealth;
+                        deal += 100+wealth;
+                    }
+                    if (InputHandler.playerSelect())
+                    {
+                        moving = false;
+                        wealth--;
+                        deal = -1;
                     }
                 }
 

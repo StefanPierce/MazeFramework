@@ -85,12 +85,12 @@
     <Compile Include="MazeGame\Enemy.cs" />
     <Compile Include="MazeGame\GameStates\ExitState.cs" />
     <Compile Include="MazeGame\GameStates\FinishState.cs" />
-    <Compile Include="MazeGame\GameStates\HDRoomViewer.cs" />
     <Compile Include="MazeGame\GameStates\MainMenu.cs" />
     <Compile Include="MazeGame\Item.cs" />
     <Compile Include="MazeGame\Maze.cs" />
     <Compile Include="MazeGame\Passage.cs" />
     <Compile Include="MazeGame\Player.cs" />
+    <Compile Include="MazeGame\RedCoin.cs" />
     <Compile Include="MazeGame\Treasure.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -158,6 +158,9 @@
     </Content>
     <Content Include="Sprites\Room1\Wall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sprites\Treasures\RedCoin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprites\Treasures\Coin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

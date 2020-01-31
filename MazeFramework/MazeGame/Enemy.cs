@@ -13,11 +13,12 @@ namespace MazeFramework.MazeGame
     class Enemy : Item
     {
         int health = 100;
-        int damage = 1;
         ENEMY type;
         int x, y;
         int prevX, prevY;
         int globalX, globalY;
+        int damage; 
+
         public Boolean dead { get; private set; } = false;
 
         public static Texture2D enemy1 = ContentLoader.LoadTexture("Sprites/Enemies/Enemy1.png");
@@ -34,6 +35,7 @@ namespace MazeFramework.MazeGame
             {
                 case ENEMY.ENEMY1:
                     current = enemy1;
+                    damage = 1;
                     break;
             }
         }
