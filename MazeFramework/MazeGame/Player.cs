@@ -167,17 +167,21 @@ namespace MazeFramework
                 {
                     if (InputHandler.playerUp())
                     {
-                        if (direction == Direction.NORTH && around[1, 2] != Tiles.WALL)
+                        if (direction == Direction.NORTH && around[1, 2] != Tiles.WALL && around[1, 2] != Tiles.FAKEPASSAGE)
                         {
                             y += 1;
                             moving = false;
+                        }
+                        if (around[1,2] == Tiles.FAKEPASSAGE)
+                        {
+                            Console.WriteLine("CANT ENTER THIS PASSAGE");
                         }
                         direction = Direction.NORTH;
                         current = up;
                     }
                     if (InputHandler.playerDown())
                     {
-                        if (direction == Direction.SOUTH && around[1, 0] != Tiles.WALL)
+                        if (direction == Direction.SOUTH && around[1, 0] != Tiles.WALL && around[1, 0] != Tiles.FAKEPASSAGE)
                         {
                             y -= 1;
                             moving = false;
@@ -186,26 +190,38 @@ namespace MazeFramework
                         {
 
                         }
+                        if (around[1, 0] == Tiles.FAKEPASSAGE)
+                        {
+                            Console.WriteLine("CANT ENTER THIS PASSAGE");
+                        }
                         direction = Direction.SOUTH;
                         current = down;
                     }
                     if (InputHandler.playerLeft())
                     {
-                        if (direction == Direction.WEST && around[0, 1] != Tiles.WALL)
+                        if (direction == Direction.WEST && around[0, 1] != Tiles.WALL && around[0, 1] != Tiles.FAKEPASSAGE)
                         {
                             x -= 1;
                             moving = false;
 
+                        }
+                        if (around[0,1] == Tiles.FAKEPASSAGE)
+                        {
+                            Console.WriteLine("CANT ENTER THIS PASSAGE");
                         }
                         direction = Direction.WEST;
                         current = left;
                     }
                     if (InputHandler.playerRight())
                     {
-                        if (direction == Direction.EAST && around[2, 1] != Tiles.WALL)
+                        if (direction == Direction.EAST && around[2, 1] != Tiles.WALL && around[2, 1] != Tiles.FAKEPASSAGE)
                         {
                             x += 1;
                             moving = false;
+                        }
+                        if (around[2, 1] == Tiles.FAKEPASSAGE)
+                        {
+                            Console.WriteLine("CANT ENTER THIS PASSAGE");
                         }
                         direction = Direction.EAST;
                         current = right;
@@ -213,7 +229,7 @@ namespace MazeFramework
                     if (InputHandler.playerAttack())
                     {
                         moving = false;
-                        deal += 100+wealth;
+                        deal += 100 + wealth;
                     }
                     if (InputHandler.playerSelect())
                     {

@@ -14,6 +14,7 @@ namespace MazeFramework
         FLOOR,
         WALL,
         PASSAGE,
+        FAKEPASSAGE,
         EXIT
     }
 
@@ -68,6 +69,19 @@ namespace MazeFramework
 
             }
 
+
+
+            grid[grid.GetLength(0) / 2, grid.GetLength(1) - 1] = Tiles.FAKEPASSAGE;
+
+            grid[grid.GetLength(0) - 1, grid.GetLength(1) / 2] = Tiles.FAKEPASSAGE;
+
+            grid[grid.GetLength(0) / 2, 0] = Tiles.FAKEPASSAGE;
+
+            grid[0, grid.GetLength(1) / 2] = Tiles.FAKEPASSAGE;
+
+
+
+
             treasures = new List<Treasure>();
             enemies = new List<Enemy>();
             redCoins = new List<RedCoin>();
@@ -81,7 +95,7 @@ namespace MazeFramework
 
         public void RenderRedCoins()
         {
-            foreach(RedCoin r in redCoins)
+            foreach (RedCoin r in redCoins)
             {
                 r.Render();
             }
@@ -110,28 +124,7 @@ namespace MazeFramework
             return new Passage[] { north, east, south, west };
         }
 
-        public int getPassageCount()
-        {
-            int count = 0;
-            if (north != null)
-            {
-                count++;
-            }
-            if (south != null)
-            {
-                count++;
-            }
-            if (south != null)
-            {
-                count++;
-            }
-            if (south != null)
-            {
-                count++;
-            }
 
-            return count;
-        }
 
         public void GenerateTreasures()
         {

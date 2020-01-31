@@ -85,6 +85,9 @@ namespace MazeFramework
                         case Tiles.PASSAGE:
                             passage.Draw(16 * x, 16 * y);
                             break;
+                        case Tiles.FAKEPASSAGE:
+                            passage.Draw(16 * x, 16 * y);
+                            break;
                     }
                 }
 
@@ -162,7 +165,10 @@ namespace MazeFramework
                 p1.setMoving();
             }
 
-
+            if(p1.wealth < 0)
+            {
+                nextScene = new FinishState(p1.wealth);
+            }
 
 
             if (InputHandler.isZoomIn())
